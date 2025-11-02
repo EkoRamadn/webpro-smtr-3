@@ -1,0 +1,130 @@
+/* css reset start*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+/* css reset end */
+
+/* global class start */
+.inline-block{
+    display: inline-block;
+}
+
+.container{
+    margin: 10px auto;
+    max-width: 1000px;
+    min-width: 600px;
+}
+
+.navigation {
+    width: 100%;
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 7px;;
+    margin: 0 0 10px 0;
+}
+
+.navigation a{
+    margin: 0;
+    font-size: 14px;
+    text-decoration: none;
+    color: #000000;
+    padding: 7px;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: background-color .2s linear, margin .3s linear, border .2s linear;
+    border: 1px solid transparent;
+}
+
+ .navigation a.active{
+    background-color: #2247A1;
+    color: #ffffff;
+    margin: 0 10px 0 0;
+    border: 1px solid black;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+.navigation a:hover{
+    background-color: rgba(0, 72, 255,.6);
+    color: #ffffff;
+    margin: 0 10px 0 0;
+}
+/* global class end */
+
+/* hero-section start */
+.hero{
+    margin: 30px 0 0 0;
+}
+.hero img{
+    width: 100%;
+}
+
+/* hero-section end */
+
+/* news-section start  */
+.news{
+    padding: 20px 0 40px 0;
+}
+
+.news-header form input{
+    width: 180px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 0px 2px;
+}
+
+.news .title{
+    margin: 0 0 15px 0;
+    width: 815px;
+    font-size: 20px;
+}
+
+.card{
+    display: inline-block;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    width: 236px;
+    border-radius: 5px;
+    margin: 0 5px 0 5px;
+    padding: 15px;
+    transition: all .2s linear;
+    height: 310PX;
+}
+
+.card:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    
+}
+
+.card .top{
+    margin: 0 0 10px 0;
+}
+
+
+.card .body h1{
+    font-size: 14px;
+    margin: 0 0 5px 0;
+}
+.card .body p, .card .body a{
+    font-size: 13px;
+    color: #333232;
+}
+
+/* news-section end */
+
+
+/* footer start */
+footer{
+    padding: 16px;
+    background-color: #000000;
+    color: white;
+}
+
+footer p{
+    font-size: 12px;
+    text-align: center;
+}
+/* footer end */
