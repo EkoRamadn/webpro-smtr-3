@@ -5,6 +5,8 @@
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     font-size: 16px;
+    border:none;
+    outline: none;
 }
 /* css reset end */
 
@@ -21,7 +23,7 @@
 
 .navigation {
     width: 100%;
-    padding: 16px;
+    padding: 10px 16px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 7px;;
     margin: 0 0 10px 0;
@@ -193,4 +195,233 @@ footer p{
 }
 .tbl-dta-umkm tr:hover{
     background-color: #ebebeb;
+}
+
+
+/* uas */
+
+.navigation{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    /* height: 80px; */
+    /* padding: 0 16px; */
+}
+
+
+.main.stok{
+    margin: 20px 0 0 0;
+}
+
+.stock-content{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    row-gap: 20px;
+}
+.icon{
+    width: 40px;
+    height: 40px;
+}
+
+.cart-buy{
+    position: absolute;
+    top: 50%;
+    right: 17px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: #f5f4f4;
+    border-radius: 6px;
+    transition: .3s;
+}
+.cart-buy.back{
+    /* left: 17px; */
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.cart-buy:hover{
+    background-color: #d6d6d6; 
+}
+
+
+.card.stok{
+    width: 200px;
+    height: max-content;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.card.stok:hover{
+    background: #fbfbfb;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    scale: 1.01;
+}
+.card.stok h1{
+    font-size: 16px;
+}
+
+.shrt-info{
+    color: #7e7e7e;
+}
+.btn-grub{
+    margin: 10px 0 0 0;
+}
+
+.btn-add-cart{
+    background-color: #333232;
+    border-radius: 5px;
+    color: #fff;
+    padding: 8px 12px 8px 6px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    cursor: pointer;
+}
+.btn-add-cart:hover{
+    background: #333232db;
+}
+.btn-add-cart .icon{
+    width: 20px;
+    height: 20px;
+}
+.btn-add-cart span{
+    font-size: 12px;
+}
+.rate{
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: 5px;
+    margin: 0 0 2px 0;
+}
+
+.rate .icon{
+    width: 16px;
+    height: 16px;
+}
+
+.rate span{
+    font-size: 12px;
+}
+.shop span{
+    font-size: 12px;
+}
+.main.stok .title{
+    font-size: 24px;
+    margin: 0 0 5px 0;
+}
+.main.stok .top p{
+    width: 60%;
+    color: #333232;
+}
+.main.stok .top{
+    margin: 0 0 20px 0;
+}
+
+.navigation .link{
+    padding: 5px 0;
+    /* padding: 0 0 0 40px; */
+}
+
+/* cart buy page */
+.cart-buy-page{
+    display: flex;
+    align-items: center;
+    height: 27px;
+    /* gap: 5px; */
+}
+.cart-buy-page .icon{
+    height: max-content;
+    width: max-content;
+}
+
+.btn-add-produk{
+    display: flex;
+    align-items: center;;
+    gap: 5px;
+    background: #2247A1; 
+    border-radius: 5px;
+    color:white;
+    padding: 12px 16px;
+    position: absolute; 
+    bottom: 5%; 
+    left: 5%;
+    cursor: pointer;
+}
+.btn-add-produk:hover{
+    background: #346dff;
+}
+
+.add-product{
+    display: flex;
+    flex-direction: column;
+}
+
+.content-form{
+   /* margin: auto; */
+    width: 300px;
+    padding: 16px;
+    /* background: blue; */
+    border-radius: 8px;
+    border: .1px solid #bcbcbc;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.input-grub{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.input-grub label{
+     font-size: 14px;
+    margin-bottom: 5px;
+}
+.input-grub input{
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: 1px solid #333232;
+     font-size: 14px;
+    outline: none;
+}
+
+.input-grub input:hover{
+    border: 1px solid #346dff;
+}
+
+.btn-grub{
+    display: flex;
+    gap: 5px;
+}
+.btn-grub button, .btn-grub a{
+    flex: 1;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #2247A1;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border: 1px solid transparent;
+}
+
+.btn-grub button:hover{
+    background: #3268f0;
+   border: 1px solid #9a9a9a;
+}
+
+.btn-grub a{
+    background: #ef4444;
+}
+
+.btn-grub a:hover{
+    background: #ff6868;
+      border: 1px solid #9a9a9a;
+}
+.ctn .right{
+    padding: 16px;
+    border: .1px solid #bcbcbc;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
