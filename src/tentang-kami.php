@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,11 +26,21 @@
             <nav>
                 <form action="">
                     <ul>
-                        <li><a href="./beranda.html">Home</a></li>
-                        <li><a href="./produk.html">Produk</a></li>
-                        <li><a href="./tentang-kami.html" class="active">Tentang Kami</a></li>
+                        <li><a href="./beranda.php">Home</a></li>
+                        <li><a href="./produk.php">Produk</a></li>
+                        <li><a href="./tentang-kami.php" class="active">Tentang Kami</a></li>
                         <li><a href="./keranjang.html">Keranjang</a></li>
-                        <li><a href="./login.html" class="active" id="logout">Logout</a></li>
+                        <?php
+                        if (isset($_SESSION['login'])) { ?>
+                            <li>
+                                <a href="./template/peringatan.php?tipe=peringatan&pesan=Apakah+anda+yakin+ingin+keluar?&kembali=../beranda.php&lanjut=../logic/logout.php"
+                                    class="active" id="logout">
+                                    Log Out
+                                </a>
+                            </li>
+                        <?php } else { ?>
+                            <li><a href="./login.html" class="active" id="logout" id="login">Log In</a></li>
+                        <?php } ?>
                     </ul>
                 </form>
             </nav>

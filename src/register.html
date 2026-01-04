@@ -11,17 +11,13 @@
 <body>
     <div class="container no-select">
         <div class="content-form fade-slide">
-            <!-- <div class="logo">
-                <img src="../public/logo.png" alt="logo batik">
-            </div> -->
             <div class="head">
                 <h1 class="title">REGISTRASI</h1>
-                <!-- <h1 class="title">Selamat Datang di <span class="clr-secan">Batik Blitar</span></h1> -->
                 <p class="subtitle">Bergabunglah dan nikmati pengalaman berbelanja batik dengan pilihan terbaik kami.
                 </p>
             </div>
 
-            <form action="">
+            <form action="./logic/register.php" method="POST">
                 <div class="input-grub">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username">
@@ -36,14 +32,14 @@
                     <button type="button" class="toggle-password">Show</button>
                 </div>
                 <div class="input-grub">
-                    <label for="address">Alamat</label>
-                    <input type="text" name="address" id="address">
+                    <label for="addres">Alamat</label>
+                    <input type="text" name="addres" id="addres">
                 </div>
                 <div class="input-grub">
                     <label for="no_tlp">Np. HP</label>
                     <input type="number" name="no_tlp" id="no_tlp">
                 </div>
-                <button>Sign Up</button>
+                <button type="submit">Sign Up</button>
             </form>
             <p class="sign">Have an account?<a href="./login.html" class="clr-secan">Login Now.</a></p>
         </div>

@@ -1,3 +1,11 @@
+<?php
+// require "./logic/koneksi.php";
+require "./logic/product.php";
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,11 +30,25 @@
             <nav>
                 <form action="">
                     <ul>
-                        <li><a href="./beranda.html" class="active">Home</a></li>
-                        <li><a href="./produk.html">Produk</a></li>
-                        <li><a href="./tentang-kami.html">Tentang Kami</a></li>
+                        <li><a href="./beranda.php" class="active">Home</a></li>
+                        <li><a href="./produk.php">Produk</a></li>
+                        <li><a href="./tentang-kami.php">Tentang Kami</a></li>
                         <li><a href="./keranjang.html">Keranjang</a></li>
-                        <li><a href="./login.html" class="active" id="logout">Logout</a></li>
+                        <?php
+                        if (isset($_SESSION['login'])) { ?>
+
+                            <li>
+                                <a href="./template/peringatan.php?tipe=peringatan&pesan=Apakah+anda+yakin+ingin+keluar?&kembali=../beranda.php&lanjut=../logic/logout.php"
+                                    class="active" id="logout">
+                                    Log Out
+                                </a>
+                            </li>
+
+                        <?php } else { ?>
+
+                            <li><a href="./login.html" class="active" id="logout" id="login">Log In</a></li>
+
+                        <?php } ?>
                     </ul>
                 </form>
             </nav>
@@ -36,7 +58,6 @@
                 <h1 class="title">Selamat Datang Di UMKM Batik </h1>
                 <p class="subtitle">Kami memproduksi batik berkualitas dengan mengutamakan keaslian motif, nilai budaya,
                     dan pemberdayaan pengrajin lokal.</p>
-                <!-- <img src="../public/img/thumb.jpg" alt="thumbnail"> -->
                 <a class="go-buy">
                     <div class="icon">
                         <img src="../public/icon/cart.png" alt="cart">
@@ -47,32 +68,35 @@
                 </a>
             </div>
             <div class="product">
-                <!-- <h2 class="title">Products List</h2> -->
 
                 <div class="container-card">
-                    <div class="product-card">
-                        <img src="../public/img/product/batik parang.jpg" alt="Produk" class="product-img">
+                    <?php
+                    while ($row = mysqli_fetch_assoc($res)) {
+                        ?>
+                        <div class="product-card">
+                            <img src="<?= $row["gambar"] ?>" alt="Produk" class="product-img">
 
-                        <div class="product-info">
-                            <div class="left">
-                                <h4 class="product-name">Batik Karawang</h4>
-                                <p class="product-price">Rp 250.000</p>
+                            <div class="product-info">
+                                <div class="left">
+                                    <h4 class="product-name"><?= $row["nama"] ?></h4>
+                                    <p class="product-price">Rp <?= number_format($row["harga"], 0, ',', '.') ?></p>
+                                </div>
+                                <div class="right">
+                                    <a href="./template/produk-detail.php?id=<?= $row['id'] ?>" class="icon">
+                                        <img src="../public/icon/arr-visit.png" alt="">
+                                    </a>
+                                    <form action="./logic/addkeranjang.php" method="POST">
+                                        <input hidden type="number" name="produk_id" id="produk_id"
+                                            value="<?= $row['id'] ?>" />
+                                        <input hidden type="number" name="total_produk" id="total_produk" value="1" />
+                                        <button href="" class="icon">
+                                            <img src="../public/icon/cart2.png" alt="">
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="right">
-                                <a href="#" class="icon">
-                                    <img src="../public/icon/arr-visit.png" alt="">
-                                </a>
-                                <a href="" class="icon">
-                                    <img src="../public/icon/cart2.png" alt="">
-                                </a>
-                            </div>
-
-                            <!-- <div class="hide-btn-dtl">
-                                <a href="#">Selengkapnya ></a>
-                            </div> -->
                         </div>
-                    </div>
-
+                    <?php } ?>
                 </div>
             </div>
         </main>

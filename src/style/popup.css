@@ -1,0 +1,46 @@
+@import "reset.css";
+
+body{
+    background-image: url(../../public/img/bg3.JPG);
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-popup{
+    text-align: center;
+    background-color: var(--clr-background);
+    width: 300px;
+    padding: 1rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* border: 1px solid rgba(119, 40, 26, 0.343); */
+    border-bottom: 5px solid var(--clr-primary);
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.content-popup .title{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.content-popup p{
+    margin-bottom: 1.5rem;
+}
+.content-popup .btn-grub {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+.content-popup .btn-grub :is(a,button){
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--clr-primary);
+    cursor: pointer;
+}
+
+.content-popup .btn-grub :is(a:hover,button:hover){
+    background-color: var(--clr-primary);
+    color: white;
+}

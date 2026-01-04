@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda</title>
-    <link rel="stylesheet" href="./style/produk-detail.css">
+    <title>Keranjang</title>
+    <link rel="stylesheet" href="./style/keranjang.css">
 </head>
 
 <body>
@@ -22,46 +22,50 @@
             <nav>
                 <form action="">
                     <ul>
-                       <li><a href="./keranjang.html">Keranjang</a></li>
-                        <!-- <li><a href="./beranda.html">Kembali</a></li> -->
                         <li><a href="./login.html" class="active" id="logout">Logout</a></li>
                     </ul>
                 </form>
             </nav>
         </header>
         <main>
-            <div class="left">
-                <div class="img-produk">
-                    <img src="../public/img/product/batik parang.jpg" alt="">
-                </div>
-            </div>
-            <div class="right">
-                <div class="dtl">
-                    <div class="grub-dtl">
-                        <h3 class="nama">Batui Ci Karawang</h3>
-                        <p class="harga">Rp. 2.000.000</p>
-                    </div>
-                    <div class="grub-dtl">
-                        <h3 class="dsc">Deskripsi</h3>
-                        <p class="dsc-dtl">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos,
-                            veritatis praesentium?
-                            Quos expedita debitis labore ratione rem culpa similique iure!</p>
-                    </div>
+            <div class="content-keranjang">
 
-                    <div class="ent">
-                        <form action="">
-                            <input type="number" name="" hidden id="">
-                            <div class="grub-input">
-                                <label for="total-barang">Total: </label>
-                                <input value="1" maxlength="99" type="number" name="total-barang" id="total-barang">
+                <table>
+                    <tr>
+                        <th>Produk</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    <tr>
+                        <td class="prod">
+                            <div class="left">
+                                <img src="" alt="">
                             </div>
-                            <button type="submit">Tambah Keranjang</button>
-                        </form>
-                    </div>
-                    <div class="btn-kembali">
-                        <a href="./beranda.html">Kembali</a>
-                    </div>
-                </div>
+                            <div class="right">
+                                <h3>Batik Ci Karang</h3>
+                            </div>
+                        </td>
+                        <td>
+                            <p>Rp. 2.000.000</p>
+                        </td>
+                        <td>
+                            <p>
+                                12
+                            </p>
+                        </td>
+                        <td>Rp. 24.000.000</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <p>Total: Rp. 12.000.000</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="btn-grub">
+                <a href="./beranda.php">Lanjut Belanja</a>
+                <button>Checkout</button>
             </div>
         </main>
         <footer>

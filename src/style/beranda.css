@@ -98,7 +98,7 @@ main .product .container{
   width: 190px;
   padding-top: 10px;
 }
-.product-info .right a.icon{
+.product-info .right :is(a.icon,button.icon){
   display: block;
   width: 28px;
   height: 28px;
