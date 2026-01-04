@@ -1,0 +1,145 @@
+@import "./reset.css";
+@import "component.css";
+
+.thumbnail{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* background-color: blue; */
+    width: 100%;
+    height: 210px;
+    overflow: hidden;
+    /* border-bottom: 2px solid var(--clr-primary); */
+    /* border-radius: 10px; */
+    /* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
+}
+.thumbnail .title{
+  font-size: 1.5rem;
+}
+.thumbnail .subtitle{
+margin: auto;
+width: 60%;
+text-align: center;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+.thumbnail .go-buy{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background-color: rgb(255, 230, 0);
+  padding: .5rem 1rem;
+  width: max-content;
+  margin: auto;
+  margin-top: 2rem;
+  font-weight: 500;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.icon{
+  width: 19px;
+  height: 19px;
+}
+.icon img{
+  width: 100%;
+}
+
+main .product{
+    padding: 0 1rem 2rem;
+}
+
+main .title{
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--clr-primary);
+    text-align: center;
+}
+
+main .product .container{
+    margin-top: .8rem;
+    padding-bottom: 1rem;
+}
+
+.product-card {
+  width: 180px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  /* box-shadow: var(--clr-primary) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
+  /* border-radius: 12px; */
+  overflow: hidden;
+  /* box-shadow: 0 6px 15px rgba(0,0,0,0.1); */
+  font-family: Arial, sans-serif;
+  transition: transform 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.product-info {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  padding: 0 10px 10px 10px;
+  text-align: left;
+}
+.product-info .left{
+  width: 190px;
+  padding-top: 10px;
+}
+.product-info .right a.icon{
+  display: block;
+  width: 28px;
+  height: 28px;
+  padding: .2rem;
+}
+.product-info .hide-btn-dtl{
+  height: 0rem;
+  overflow: hidden;
+  position: absolute;
+  background-color: var(--clr-primary);
+  transition: all .3s linear;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.product-info:hover{
+  /* padding-bottom: 1rem; */
+}
+
+.product-info:hover .hide-btn-dtl{
+  /* top: 0; */
+  height: 100%;
+  /* height: 1rem;
+    padding: 1rem; */
+}
+
+.product-name {
+  margin: 0;
+  font-size: 14px;
+  color: var(--clr-text);
+}
+
+.product-price {
+  margin: 6px 0;
+  font-weight: bold;
+  color: var(--clr-text);
+}
+
+
+
+
+/* tentang kami */
+

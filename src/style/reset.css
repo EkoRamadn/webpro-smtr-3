@@ -2,7 +2,8 @@
     --clr-primary: #521C0D;
     --clr-primary-hover: hwb(13 10% 41%);
     --clr-secondary: #B17B40;
-    --clr-backgroud: #fff;
+    --clr-background: #fff;
+    --clr-foregorund:#cbcbcb;
     --clr-text: #000;
     --clr-subtext: #313131;
     --clr-stone: #898989;
@@ -19,6 +20,7 @@
     text-decoration: none;
     font-size: 1rem;
     font-weight: normal;
+    list-style: none;
 }
 
 @font-face {
@@ -32,13 +34,15 @@
 body {
   font-family: 'Inter', sans-serif;
   color: var(--clr-text);
-  background-color: var(--clr-backgroud);
+  background-color: var(--clr-background);
 }
 
 .no-select {
   user-select: none;
 }
-
+.clr-primary{
+  color: var(--clr-primary);
+}
 .clr-secan{
     color: var(--clr-secondary);
 }
@@ -51,6 +55,12 @@ body {
   transform: translateY(20px);
   animation: fadeSlideUp 1s .2s  ease-out forwards;
 }
+
+
+
+
+/* main & nav */
+
 
 @keyframes fadeSlideUp {
   to {

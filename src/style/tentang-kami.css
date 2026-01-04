@@ -1,0 +1,69 @@
+/* @import "reset.css"; */
+@import "./component.css";
+
+main{
+    padding-bottom: 2rem;
+    padding-top: 1.3rem;
+}
+.grub{
+    padding: 0 1rem;
+    margin-top: 2rem;
+}
+.thumbnail{
+    display: flex;
+    padding: 0 1rem;
+    justify-content: space-between;
+}
+.thumbnail .left {
+    width: 60%;
+}
+.thumbnail .right{
+    flex: 1;
+}
+ .title{
+    font-size: 18px;
+    font-weight: 600;
+}
+.thumbnail .subtitle{
+    font-size: 14px;
+    margin-top: .3rem;
+}
+
+.thumbnail .logo{
+    margin: auto;
+    width: 150px;
+}
+.thumbnail .logo img{
+    width: 100%;
+}
+.grub .anggota{
+    width: 170px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.grub .anggota .top{
+    height: 150px;
+    overflow: hidden;
+}
+.grub .anggota .btm {
+    padding: .5rem;
+}
+.grub .anggota table :is( td,th){
+    font-size: 13px;
+    text-align: left;
+}
+.grub .container-grub ul{
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+img{
+    width: 100%;
+    object-fit: cover;
+}
+.grub .anggota table :is( th){
+    font-weight: bold;
+}
+

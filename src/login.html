@@ -29,13 +29,17 @@
                     <input type="password" name="password" id="password">
                     <button type="button" class="toggle-password">Show</button>
                 </div>
-                <button>Sign In</button>
+                <button onclick="handleSignIn()">Sign In</button>
             </form>
             <p class="sign">Don't have an account?<a href="./register.html" class="clr-secan">Register Now.</a></p>
         </div>
     </div>
 
     <script>
+        function handleSignIn(e) {
+          
+        }
+
         document.querySelectorAll('.input-grub').forEach(group => {
             const input = group.querySelector('input');
 
