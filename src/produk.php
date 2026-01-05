@@ -6,6 +6,8 @@ session_start();
 $kategori = $_GET['kategori'] ?? "0";
 $found = false;
 $search = strtolower(str_replace(' ', '', $_GET['src'] ?? ""));
+
+$status = $_GET['status'] ?? "";
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +53,13 @@ $search = strtolower(str_replace(' ', '', $_GET['src'] ?? ""));
                 </form>
             </nav>
         </header>
+        <?php
+        if ($status === 'berhasil') {
+            echo '<p class="notif-sukses">Berhasil: Produk Ditambahkan.</p>';
+        } elseif ($status === 'gagal') {
+            echo '<p class="notif-gagal">Gagal: Produk Gagal Ditambahkan</p>';
+        }
+        ?>
         <main>
             <div class="left">
                 <div class="kategory">
@@ -100,6 +109,7 @@ $search = strtolower(str_replace(' ', '', $_GET['src'] ?? ""));
                                                 <form action="./logic/addkeranjang.php" method="POST">
                                                     <input hidden type="number" name="produk_id" id="produk_id"
                                                         value="<?= $row['id'] ?>" />
+                                                    <input hidden type="text" name="oks" value="../produk.php">
                                                     <input hidden type="number" name="total_produk" id="total_produk"
                                                         value="1" />
                                                     <button href="" class="icon">

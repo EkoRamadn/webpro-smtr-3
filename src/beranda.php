@@ -3,6 +3,7 @@
 require "./logic/product.php";
 session_start();
 
+$status = $_GET['status'] ?? "";
 ?>
 
 
@@ -53,6 +54,13 @@ session_start();
                 </form>
             </nav>
         </header>
+        <?php
+        if ($status === 'berhasil') {
+            echo '<p class="notif-sukses">Berhasil: Produk Ditambahkan.</p>';
+        } elseif ($status === 'gagal') {
+            echo '<p class="notif-gagal">Gagal: Produk Gagal Ditambahkan</p>';
+        }
+        ?>
         <main>
             <div class="thumbnail">
                 <h1 class="title">Selamat Datang Di UMKM Batik </h1>
@@ -88,6 +96,7 @@ session_start();
                                     <form action="./logic/addkeranjang.php" method="POST">
                                         <input hidden type="number" name="produk_id" id="produk_id"
                                             value="<?= $row['id'] ?>" />
+                                        <input hidden type="text" name="oks" value="../beranda.php">
                                         <input hidden type="number" name="total_produk" id="total_produk" value="1" />
                                         <button href="" class="icon">
                                             <img src="../public/icon/cart2.png" alt="">

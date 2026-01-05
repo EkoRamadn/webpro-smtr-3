@@ -10,6 +10,7 @@ if (!isset($_SESSION['login'])) {
 $user_id = $_SESSION["user_id"];
 $produk_id = $_POST["produk_id"];
 $total_produk = $_POST["total_produk"];
+$oks = $_POST["oks"];
 
 $sql = "SELECT id FROM keranjang 
         WHERE user_id = $user_id 
@@ -30,7 +31,8 @@ if ($res && mysqli_num_rows($res) > 0) {
     if ($insert) {
         $keranjang_id = mysqli_insert_id($_CONNEC);
     } else {
-        die("Gagal membuat keranjang baru");
+        // die("Gagal membuat keranjang baru");
+        header("Location: $oks?status=gagal");
     }
 }
 
@@ -51,13 +53,15 @@ if ($checkRes && mysqli_num_rows($checkRes) > 0) {
 
     mysqli_query($_CONNEC, $sqlUpdate);
 
-    echo "UPDATE: jumlah produk sekarang = $newTotal";
+    // echo "UPDATE: jumlah produk sekarang = $newTotal";
+    header("Location: $oks?status=berhasil");
 
 } else {
     $sqlInsert = "INSERT INTO keranjang_produk (keranjang_id, produk_id, total_produk) 
                   VALUES ($keranjang_id, $produk_id, $total_produk)";
     mysqli_query($_CONNEC, $sqlInsert);
 
-    echo "INSERT: produk baru ditambahkan ke keranjang";
+    // echo "INSERT: produk baru ditambahkan ke keranjang";
+    header("Location: $oks?status=berhasil");
 }
 ?>
