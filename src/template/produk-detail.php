@@ -121,7 +121,11 @@ $produk = mysqli_fetch_assoc($res);
             </div>
         </footer>
     </div>
-
+    <?php if ($MODE === 'dev') { ?>
+        <div class="mode-dev" id="mode-dev">
+            <span>Development</span>
+        </div>
+    <?php } ?>
 </body>
 
 </html>

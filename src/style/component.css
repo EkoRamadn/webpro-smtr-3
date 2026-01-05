@@ -149,3 +149,16 @@ footer .end {
     border: 1px solid red;
     box-sizing: border-box;
 }
+
+#mode-dev{
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+}
+#mode-dev span{
+  font-size: 1rem;
+  padding: .8rem 1rem;
+  background-color: green;
+  color: white;
+  border-radius: 6px;
+}

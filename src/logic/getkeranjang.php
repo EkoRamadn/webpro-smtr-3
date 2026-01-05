@@ -1,6 +1,5 @@
 <?php
 require "koneksi.php";
-session_start();
 $user_id = $_SESSION['user_id'];
 
 $sql = "SELECT kp.*, p.nama, p.harga, p.gambar

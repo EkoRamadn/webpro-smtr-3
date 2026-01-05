@@ -1,7 +1,6 @@
 <?php
-// require "./logic/koneksi.php";
-require "./logic/product.php";
 session_start();
+require "./logic/product.php";
 
 $status = $_GET['status'] ?? "";
 ?>
@@ -143,7 +142,11 @@ $status = $_GET['status'] ?? "";
             </div>
         </footer>
     </div>
-
+    <?php if ($MODE === 'dev') { ?>
+        <div class="mode-dev" id="mode-dev">
+            <span>Development</span>
+        </div>
+    <?php } ?>
 </body>
 
 </html>

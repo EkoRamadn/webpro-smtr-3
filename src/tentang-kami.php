@@ -1,5 +1,6 @@
 <?php
 session_start();
+require "./logic/koneksi.php";
 ?>
 
 <!DOCTYPE html>
@@ -199,7 +200,13 @@ session_start();
             </div>
         </footer>
     </div>
-
+    <?php if ($MODE === 'dev') { ?>
+        <div class="mode-dev" id="mode-dev">
+            <span>Development</span>
+        </div>
+    <?php } else {
+        echo "";
+    } ?>
 </body>
 
 </html>

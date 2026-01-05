@@ -1,19 +1,33 @@
 <?php
+mysqli_report(MYSQLI_REPORT_OFF); //garis besar
 
-$_DB_HOST = "mysql";
-$_DB_NAME = "app_db";
-$_DB_USERNAME = "root";
-$_DB_PASSWORD = "root";
+$_DB_HOST_1 = "sql100.infinityfree.com";
+$_DB_NAME_1 = "if0_40805394_batik_db";
+$_DB_USERNAME_1 = "if0_40805394";
+$_DB_PASSWORD_1 = "5AkRyVR1BGwtZ";
 
-$_CONNEC = mysqli_connect(
-    $_DB_HOST,
-    $_DB_USERNAME,
-    $_DB_PASSWORD,
-    $_DB_NAME
+$_DB_HOST_2 = "mysql";
+$_DB_NAME_2 = "app_db";
+$_DB_USERNAME_2 = "root";
+$_DB_PASSWORD_2 = "root";
+
+$_CONNEC = @mysqli_connect(
+    $_DB_HOST_1,
+    $_DB_USERNAME_1,
+    $_DB_PASSWORD_1,
+    $_DB_NAME_1
 );
+$MODE = "";
 
-if ($_CONNEC) {
-    // echo "Koneksi DATABASE berhasil 💖";
-} else {
-    echo "<p class='popup-error'>Koneksi gagal DATABASE : " . mysqli_connect_error() . "</p>";
+if (!$_CONNEC) {
+
+    $_CONNEC = @mysqli_connect($_DB_HOST_2, $_DB_USERNAME_2, $_DB_PASSWORD_2, $_DB_NAME_2);
+
+    if (!$_CONNEC) {
+        $KONEKSI_MESSAGE = " Semua koneksi gagal: " . mysqli_connect_error();
+        $MODE = "err";
+    } else {
+        $KONEKSI_MESSAGE = " Koneksi utama gagal, memakai koneksi cadangan.";
+        $MODE = "dev";
+    }
 }

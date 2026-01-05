@@ -34,6 +34,11 @@ $tipe = isset($_GET["tipe"]) ? $_GET["tipe"] : "peringatan";
             </div>
         </form>
     </div>
+    <?php if ($MODE === 'dev') { ?>
+        <div class="mode-dev" id="mode-dev">
+            <span>Development</span>
+        </div>
+    <?php } ?>
 </body>
 
 </html>

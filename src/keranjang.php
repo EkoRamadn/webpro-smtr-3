@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "./logic/getkeranjang.php";
 
 $total_harga_dikeranjang = 0;
@@ -28,7 +29,17 @@ $total_harga_dikeranjang = 0;
             <nav>
                 <form action="">
                     <ul>
-                        <li><a href="./login.html" class="active" id="logout">Logout</a></li>
+                        <?php
+                        if (isset($_SESSION['login'])) { ?>
+                            <li>
+                                <a href="./template/peringatan.php?tipe=peringatan&pesan=Apakah+anda+yakin+ingin+keluar?&kembali=../beranda.php&lanjut=../logic/logout.php"
+                                    class="active" id="logout">
+                                    Log Out
+                                </a>
+                            </li>
+                        <?php } else { ?>
+                            <li><a href="./login.html" class="active" id="logout" id="login">Log In</a></li>
+                        <?php } ?>
                     </ul>
                 </form>
             </nav>
@@ -113,7 +124,11 @@ $total_harga_dikeranjang = 0;
             </div>
         </footer>
     </div>
-
+    <?php if ($MODE === 'dev') { ?>
+        <div class="mode-dev" id="mode-dev">
+            <span>Development</span>
+        </div>
+    <?php } ?>
 </body>
 
 </html>
