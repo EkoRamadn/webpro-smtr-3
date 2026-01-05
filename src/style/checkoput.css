@@ -1,2 +1,63 @@
 @import "./component.css";
 
+.content-checkout{
+    width: 90%;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    /* padding: 1rem; */
+    margin-block: 1rem;
+}
+.content-checkout table{
+    width: 100%;
+}
+.content-checkout table :is(th,td){
+    text-align: left;
+    padding: .5rem 1rem;
+}
+.content-checkout table tr{
+    display: flex;
+    /* flex-direction: column; */
+}
+.content-checkout table td{
+    flex: 1;
+}
+.content-checkout table input:not([type="radio"]) {
+    width: 90%;
+    padding: .2rem 0;
+}
+.content-checkout table tr:not(.head-form) th{
+    width: 150px;
+    padding-left: 2rem;
+    /* background-color: aquamarine; */
+}
+.content-checkout table tr.head-form{
+    background-color: var(--clr-primary);
+}
+.content-checkout table tr.head-form h2{
+    color: white;
+    font-weight: 600;
+}
+
+.content-checkout :is(th,input,td,label) {
+    font-size: 14px;
+}
+.content-checkout .payment{
+    display: flex;
+}
+.content-checkout .left{
+    flex: 1;
+}
+.content-checkout .left .input-grub{
+    padding: .2rem .5rem ;
+}
+
+.qr{
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+}
+.qr img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
