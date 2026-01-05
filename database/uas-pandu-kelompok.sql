@@ -80,3 +80,5 @@ ALTER TABLE `pesanan` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `pesanan_produk` ADD FOREIGN KEY (`pesanan_id`) REFERENCES `pesanan` (`id`);
 
 ALTER TABLE `pesanan_produk` ADD FOREIGN KEY (`produk_id`) REFERENCES `produk` (`id`);
+
+ALTER TABLE `produk`ADD COLUMN gambar VARCHAR(255);
