@@ -2,7 +2,6 @@
 require "./koneksi.php";
 session_start();
 
-// Validasi field kosong
 if (
     empty($_POST['username']) ||
     empty($_POST['fullname']) ||
@@ -21,7 +20,6 @@ $password_plain = $_POST['password'];
 $address = trim($_POST['addres']);
 $no_tlp = trim($_POST['no_tlp']);
 
-// Insert ke DB
 $sql = "INSERT INTO user 
 (username, password, nama_lengkap, alamat, no_hp, role) 
 VALUES 
@@ -32,16 +30,13 @@ $res = mysqli_query($_CONNEC, $sql);
 if ($res) {
     $user_id = mysqli_insert_id($_CONNEC);
 
-    // Auto login
     session_regenerate_id(true);
     $_SESSION['login'] = true;
     $_SESSION['user_id'] = $user_id;
     $_SESSION['username'] = $username;
     $_SESSION['role'] = 'user';
 
-    // echo "Registrasi berhasil ".$user_id;
-    // atau:
-    header("Location: ../beranda.html");
+    header("Location: ../beranda.php");
     exit;
 
 } else {
