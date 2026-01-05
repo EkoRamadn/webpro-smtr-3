@@ -1,4 +1,6 @@
 <?php
+require "../logic/koneksi.php";
+
 $pesan = isset($_GET["pesan"]) ? $_GET["pesan"] : "Pesan tidak tersedia";
 $kembali = isset($_GET["kembali"]) ? $_GET["kembali"] : "#";
 $lanjut = isset($_GET["lanjut"]) ? $_GET["lanjut"] : "#";
@@ -13,6 +15,7 @@ $tipe = isset($_GET["tipe"]) ? $_GET["tipe"] : "peringatan";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notifikasi</title>
     <link rel="stylesheet" href="../style/popup.css">
+    <link rel="stylesheet" href="../style/component.css">
 </head>
 
 <body>

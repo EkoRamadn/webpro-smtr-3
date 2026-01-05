@@ -38,6 +38,7 @@ body{
     border-radius: 5px;
     border: 1px solid var(--clr-primary);
     cursor: pointer;
+    color: var(--clr-primary);
 }
 
 .content-popup .btn-grub :is(a:hover,button:hover){

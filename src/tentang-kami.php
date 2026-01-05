@@ -1,6 +1,11 @@
 <?php
 session_start();
 require "./logic/koneksi.php";
+
+if (!isset($_SESSION['login'])) {
+    header("Location: ./login.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +45,7 @@ require "./logic/koneksi.php";
                                 </a>
                             </li>
                         <?php } else { ?>
-                            <li><a href="./login.html" class="active" id="logout" id="login">Log In</a></li>
+                            <li><a href="./login.php" class="active" id="logout" id="login">Log In</a></li>
                         <?php } ?>
                     </ul>
                 </form>

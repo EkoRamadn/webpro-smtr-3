@@ -1,5 +1,11 @@
 <?php
+session_start();
 require "../logic/koneksi.php";
+
+if (!isset($_SESSION['login'])) {
+    header("Location: ../login.php");
+}
+
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     echo "Produk tidak ditemukan ";
     exit;
@@ -45,7 +51,21 @@ $produk = mysqli_fetch_assoc($res);
                     <ul>
                         <li><a href="../keranjang.php">Keranjang</a></li>
                         <!-- <li><a href="./beranda.html">Kembali</a></li> -->
-                        <li><a href="./login.html" class="active" id="logout">Logout</a></li>
+                        <?php
+                        if (isset($_SESSION['login'])) { ?>
+
+                            <li>
+                                <a href="../template/peringatan.php?tipe=peringatan&pesan=Apakah+anda+yakin+ingin+keluar?&kembali=../beranda.php&lanjut=../logic/logout.php"
+                                    class="active" id="logout">
+                                    Log Out
+                                </a>
+                            </li>
+
+                        <?php } else { ?>
+
+                            <li><a href="./login.php" class="active" id="logout" id="login">Log In</a></li>
+
+                        <?php } ?>
                     </ul>
                 </form>
             </nav>

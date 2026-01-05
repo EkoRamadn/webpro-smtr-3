@@ -1,45 +1,58 @@
+<?php
+session_start();
+if (isset($_SESSION['login'])) {
+    header("Location: ./beranda.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" href="./style/login.css">
 </head>
 
 <body>
     <div class="container no-select">
         <div class="content-form fade-slide">
-            <div class="logo">
-                <img src="../public/logo.png" alt="logo batik">
-            </div>
             <div class="head">
-                <h1 class="title">Selamat Datang di <span class="clr-secan">Batik Blitar</span></h1>
-                <p class="subtitle">Masuk ke akun Anda dan mulai jelajahi koleksi batik terbaik kami.</p>
+                <h1 class="title">REGISTRASI</h1>
+                <p class="subtitle">Bergabunglah dan nikmati pengalaman berbelanja batik dengan pilihan terbaik kami.
+                </p>
             </div>
 
-            <form action="./logic/login.php" method="POST">
+            <form action="./logic/register.php" method="POST">
                 <div class="input-grub">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username">
+                </div>
+                <div class="input-grub">
+                    <label for="fullname">Nsms Lengkap</label>
+                    <input type="text" name="fullname" id="fullname">
                 </div>
                 <div class="input-grub">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password">
                     <button type="button" class="toggle-password">Show</button>
                 </div>
-                <button onclick="handleSignIn()">Sign In</button>
+                <div class="input-grub">
+                    <label for="addres">Alamat</label>
+                    <input type="text" name="addres" id="addres">
+                </div>
+                <div class="input-grub">
+                    <label for="no_tlp">Np. HP</label>
+                    <input type="number" name="no_tlp" id="no_tlp">
+                </div>
+                <button type="submit">Sign Up</button>
             </form>
-            <p class="sign">Don't have an account?<a href="./register.html" class="clr-secan">Register Now.</a></p>
+            <p class="sign">Have an account?<a href="./login.html" class="clr-secan">Login Now.</a></p>
         </div>
     </div>
 
     <script>
-        function handleSignIn(e) {
-          
-        }
-
         document.querySelectorAll('.input-grub').forEach(group => {
             const input = group.querySelector('input');
 

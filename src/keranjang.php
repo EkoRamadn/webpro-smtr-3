@@ -1,6 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: ./login.php");
+}
 require "./logic/getkeranjang.php";
+
 
 $total_harga_dikeranjang = 0;
 ?>
@@ -38,7 +42,7 @@ $total_harga_dikeranjang = 0;
                                 </a>
                             </li>
                         <?php } else { ?>
-                            <li><a href="./login.html" class="active" id="logout" id="login">Log In</a></li>
+                            <li><a href="./login.php" class="active" id="logout" id="login">Log In</a></li>
                         <?php } ?>
                     </ul>
                 </form>

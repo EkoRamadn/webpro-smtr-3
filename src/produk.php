@@ -3,6 +3,10 @@ session_start();
 require "./logic/product.php";
 require "./logic/getkategori.php";
 
+if (!isset($_SESSION['login'])) {
+    header("Location: ./login.php");
+}
+
 $kategori = $_GET['kategori'] ?? "0";
 $found = false;
 $search = strtolower(str_replace(' ', '', $_GET['src'] ?? ""));
@@ -47,7 +51,7 @@ $status = $_GET['status'] ?? "";
                                 </a>
                             </li>
                         <?php } else { ?>
-                            <li><a href="./login.html" class="active" id="logout" id="login">Log In</a></li>
+                            <li><a href="./login.php" class="active" id="logout" id="login">Log In</a></li>
                         <?php } ?>
                     </ul>
                 </form>

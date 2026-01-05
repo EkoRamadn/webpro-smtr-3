@@ -2,6 +2,10 @@
 session_start();
 require "./logic/product.php";
 
+if (!isset($_SESSION['login'])) {
+    header("Location: ./login.php");
+}
+
 $status = $_GET['status'] ?? "";
 ?>
 
@@ -46,7 +50,7 @@ $status = $_GET['status'] ?? "";
 
                         <?php } else { ?>
 
-                            <li><a href="./login.html" class="active" id="logout" id="login">Log In</a></li>
+                            <li><a href="./login.php" class="active" id="logout" id="login">Log In</a></li>
 
                         <?php } ?>
                     </ul>
