@@ -3,6 +3,8 @@ session_start();
 if (isset($_SESSION['login'])) {
     header("Location: ./beranda.php");
 }
+
+$status = $_GET["status"] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +20,11 @@ if (isset($_SESSION['login'])) {
 <body>
     <div class="container no-select">
         <div class="content-form fade-slide">
+            <?php
+            if ($status !== '') {
+                echo '<p class="notif-gagal">' . $status . '</p>';
+            }
+            ?>
             <div class="head">
                 <h1 class="title">REGISTRASI</h1>
                 <p class="subtitle">Bergabunglah dan nikmati pengalaman berbelanja batik dengan pilihan terbaik kami.

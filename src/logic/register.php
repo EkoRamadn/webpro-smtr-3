@@ -40,5 +40,6 @@ if ($res) {
     exit;
 
 } else {
-    echo "Gagal menyimpan data  : " . mysqli_error($_CONNEC);
+    header("Location: ../register.php?status=$mysqli_error($_CONNEC).");
+    // echo "Gagal menyimpan data  : " . mysqli_error($_CONNEC);
 }

@@ -3,6 +3,8 @@ session_start();
 if (isset($_SESSION['login'])) {
     header("Location: ./beranda.php");
 }
+
+$status = $_GET["status"] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +19,13 @@ if (isset($_SESSION['login'])) {
 
 <body>
     <div class="container no-select">
+
         <div class="content-form fade-slide">
+            <?php
+            if ($status !== '') {
+                echo '<p class="notif-gagal">' . $status . '</p>';
+            }
+            ?>
             <div class="logo">
                 <img src="../public/logo.png" alt="logo batik">
             </div>

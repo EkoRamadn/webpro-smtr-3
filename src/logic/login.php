@@ -6,7 +6,8 @@ if (
     empty($_POST['username']) ||
     empty($_POST['password'])
 ) {
-    echo "<p class='popup-error'>Username dan password wajib diisi</p>";
+    header("Location: ../login.php?status=Username dan password wajib diisi.");
+    // echo "<p class='popup-error'>Username dan password wajib diisi</p>";
     exit;
 }
 
@@ -40,9 +41,11 @@ if (mysqli_num_rows($res) === 1) {
         exit;
 
     } else {
-        echo "<p class='popup-error'>Password salah </p>";
+        // echo "<p class='popup-error'>Password salah </p>";
+        header("Location: ../login.php?status=Password Salah.");
     }
 
 } else {
-    echo "<p class='popup-error'>Username tidak ditemukan </p>";
+    // echo "<p class='popup-error'>Username tidak ditemukan </p>";
+    header("Location: ../login.php?status=Username tidak ditemukan.");
 }
