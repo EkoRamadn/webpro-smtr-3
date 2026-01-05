@@ -29,7 +29,7 @@ session_start();
                         <li><a href="./beranda.php">Home</a></li>
                         <li><a href="./produk.php">Produk</a></li>
                         <li><a href="./tentang-kami.php" class="active">Tentang Kami</a></li>
-                        <li><a href="./keranjang.html">Keranjang</a></li>
+                        <li><a href="./keranjang.php">Keranjang</a></li>
                         <?php
                         if (isset($_SESSION['login'])) { ?>
                             <li>

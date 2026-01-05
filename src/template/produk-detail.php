@@ -43,7 +43,7 @@ $produk = mysqli_fetch_assoc($res);
             <nav>
                 <form action="">
                     <ul>
-                        <li><a href="../keranjang.html">Keranjang</a></li>
+                        <li><a href="../keranjang.php">Keranjang</a></li>
                         <!-- <li><a href="./beranda.html">Kembali</a></li> -->
                         <li><a href="./login.html" class="active" id="logout">Logout</a></li>
                     </ul>
@@ -70,7 +70,7 @@ $produk = mysqli_fetch_assoc($res);
                     </div>
 
                     <div class="ent">
-                        <form action="">
+                        <form action="../logic/addkeranjang.php" method="POST">
                             <input type="number" name="" hidden id="">
                             <div class="grub-input">
                                 <input hidden type="number" name="produk_id" id="produk_id"

@@ -1,3 +1,9 @@
+<?php
+require "./logic/getkeranjang.php";
+
+$total_harga_dikeranjang = 0;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,28 +43,33 @@
                         <th>Jumlah</th>
                         <th>Subtotal</th>
                     </tr>
-                    <tr>
-                        <td class="prod">
-                            <div class="left">
-                                <img src="" alt="">
-                            </div>
-                            <div class="right">
-                                <h3>Batik Ci Karang</h3>
-                            </div>
-                        </td>
-                        <td>
-                            <p>Rp. 2.000.000</p>
-                        </td>
-                        <td>
-                            <p>
-                                12
-                            </p>
-                        </td>
-                        <td>Rp. 24.000.000</td>
-                    </tr>
+                    <?php while ($row = mysqli_fetch_assoc($res)) {
+                        $subtotal = $row["harga"] * $row['total_produk'];
+                        $total_harga_dikeranjang += $subtotal;
+                        ?>
+                        <tr>
+                            <td class="prod">
+                                <div class="left">
+                                    <img src="<?= $row['gambar'] ?>" alt="">
+                                </div>
+                                <div class="right">
+                                    <h3><?= $row["nama"] ?></h3>
+                                </div>
+                            </td>
+                            <td>
+                                <p>Rp. <?= number_format($row["harga"], 0, ',', '.') ?></p>
+                            </td>
+                            <td>
+                                <p>
+                                    <?= $row['total_produk'] ?>
+                                </p>
+                            </td>
+                            <td>Rp. <?= number_format($subtotal, 0, ',', '.') ?></td>
+                        </tr>
+                    <?php } ?>
                     <tr>
                         <td colspan="4">
-                            <p>Total: Rp. 12.000.000</p>
+                            <p>Total: Rp. <?= number_format($total_harga_dikeranjang, 0, ',', '.') ?></p>
                         </td>
                     </tr>
                 </table>
