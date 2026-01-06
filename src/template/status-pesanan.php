@@ -128,8 +128,7 @@ if ($index !== false) {
                                     <p class="step-text">Pembayaran</p>
                                 </div>
                                 <div class="step">
-                                    <div
-                                        class="bullet  <?= ($pendding && $pay && $procces) ? "completed" : "" ?>">
+                                    <div class="bullet  <?= ($pendding && $pay && $procces) ? "completed" : "" ?>">
                                         <div class="icon">
                                             <img src="../../public/icon/package-proces.png" alt="">
                                         </div>
@@ -137,7 +136,8 @@ if ($index !== false) {
                                     <p class="step-text">Diproses</p>
                                 </div>
                                 <div class="step">
-                                    <div class="bullet  <?= ($pendding && $pay && $procces && $deliver) ? "completed" : "" ?>">
+                                    <div
+                                        class="bullet  <?= ($pendding && $pay && $procces && $deliver) ? "completed" : "" ?>">
                                         <div class="icon">
                                             <img src="../../public/icon/package-send.png" alt="">
                                         </div>
@@ -145,7 +145,8 @@ if ($index !== false) {
                                     <p class="step-text">Dikirim</p>
                                 </div>
                                 <div class="step">
-                                    <div class="bullet  <?= ($pendding && $pay && $procces && $deliver && $complate) ? "completed" : "" ?>">
+                                    <div
+                                        class="bullet  <?= ($pendding && $pay && $procces && $deliver && $complate) ? "completed" : "" ?>">
                                         <div class="icon">
                                             <img src="../../public/icon/package-rearchive.png" alt="">
                                         </div>
@@ -185,9 +186,9 @@ if ($index !== false) {
             <div class="end">
                 <h3>Creator</h3>
                 <ul>
-                    <li><a href="">Rado Arganata</a></li>
-                    <li><a href="">Cahyo</a></li>
-                    <li><a href="">Dimas Surga</a></li>
+                    <li><a href="">Handika Rado Arganata</a></li>
+                    <li><a href="">Cahyo Saputra</a></li>
+                    <li><a href="">Dimas Akbar Maulana</a></li>
                     <li><a href="">Eko Ramadani</a></li>
                 </ul>
             </div>

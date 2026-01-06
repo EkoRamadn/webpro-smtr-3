@@ -198,8 +198,8 @@ if (!isset($_SESSION['login'])) {
                 <h3>Creator</h3>
                 <ul>
                     <li><a href="">Handika Rado Arganata</a></li>
-                    <li><a href="">Cahyo</a></li>
-                    <li><a href="">Dimas Surga</a></li>
+                    <li><a href="">Cahyo Saputra</a></li>
+                    <li><a href="">Dimas Akbar Maulana</a></li>
                     <li><a href="">Eko Ramadani</a></li>
                 </ul>
             </div>
