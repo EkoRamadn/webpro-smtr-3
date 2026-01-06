@@ -91,7 +91,7 @@ $status = $_GET['status'] ?? "";
                                         </span>
                                     </div>
                                     <div class="center">
-                                        <span>
+                                        <span class="status-pesanan">
                                             <?= htmlspecialchars($row['status_pesanan']) ?>
                                         </span>
                                     </div>

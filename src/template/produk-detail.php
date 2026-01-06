@@ -23,6 +23,7 @@ if (!$res || mysqli_num_rows($res) === 0) {
 }
 
 $produk = mysqli_fetch_assoc($res);
+$status = $_GET['status'] ?? "";
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +71,13 @@ $produk = mysqli_fetch_assoc($res);
                 </form>
             </nav>
         </header>
+        <?php
+        if ($status === 'berhasil') {
+            echo '<p class="notif-sukses">Berhasil: Produk Ditambahkan.</p>';
+        } elseif ($status === 'gagal') {
+            echo '<p class="notif-gagal">Gagal: Produk Gagal Ditambahkan</p>';
+        }
+        ?>
         <main>
             <div class="left">
                 <div class="img-produk">
@@ -91,10 +99,15 @@ $produk = mysqli_fetch_assoc($res);
 
                     <div class="ent">
                         <form action="../logic/addkeranjang.php" method="POST">
-                            <input type="number" name="" hidden id="">
+                            <!-- <input type="number" name="" hidden id=""> -->
                             <div class="grub-input">
                                 <input hidden type="number" name="produk_id" id="produk_id"
                                     value="<?= $produk['id'] ?>" />
+                                <input hidden type="number" name="produk_id" id="produk_id"
+                                    value="<?= $produk['id'] ?>" />
+                                <input hidden type="text" name="oks"
+                                    value="../produk.php">
+                                <!-- <input hidden type="number" name="total_produk" id="total_produk" value="1" /> -->
                                 <label for="total-barang">Total: </label>
                                 <input value="1" maxlength="99" type="number" name="total_produk" id="total_produk">
                             </div>

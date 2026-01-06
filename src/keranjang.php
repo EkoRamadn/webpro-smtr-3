@@ -58,8 +58,10 @@ $keranjang_id = 0;
                         <th>Harga</th>
                         <th>Jumlah</th>
                         <th>Subtotal</th>
+                        <th>aksi</th>
                     </tr>
                     <?php while ($row = mysqli_fetch_assoc($res)) {
+                        // var_dump($row);
                         $subtotal = $row["harga"] * $row['total_produk'];
                         $total_harga_dikeranjang += $subtotal;
                         $keranjang_id = $row['id'];
@@ -82,6 +84,11 @@ $keranjang_id = 0;
                                 </p>
                             </td>
                             <td>Rp. <?= number_format($subtotal, 0, ',', '.') ?></td>
+                            <td><a href="./logic/deleteprodukkeranjang.php?id=<?= $row["id"] ?>" class="icn">
+                                    <div class="icon">
+                                        <img src="../public/icon/delete.png" alt="">
+                                    </div>
+                                </a></td>
                         </tr>
                     <?php } ?>
                     <tr>

@@ -102,7 +102,7 @@ $status = $_GET['status'] ?? "";
                                             value="<?= $row['id'] ?>" />
                                         <input hidden type="text" name="oks" value="../beranda.php">
                                         <input hidden type="number" name="total_produk" id="total_produk" value="1" />
-                                        <button href="" class="icon">
+                                        <button  class="icon">
                                             <img src="../public/icon/cart2.png" alt="">
                                         </button>
                                     </form>

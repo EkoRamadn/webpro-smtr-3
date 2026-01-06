@@ -1,7 +1,7 @@
 @import "./component.css";
 
 main{
-    background-color: blanchedalmond;
+    /* background-color: blanchedalmond; */
     margin-top: 0;
     padding-top: 20px;
     min-height: 500px;
@@ -15,7 +15,7 @@ main .head h1{
 }
 
 .content-pesanan{
-    background-color: blanchedalmond;
+    /* background-color: blanchedalmond; */
     padding: 20px 30px;
 }
 .content-pesanan li{
@@ -43,17 +43,30 @@ main .head h1{
     font-weight: 600;
 }
 .content-pesanan li:hover:not(.head){
-    background-color: rgba(255, 205, 139, 0.325);
+    background-color: blanchedalmond;
 }
 
 .content-pesanan li a :is(.left,.center){
     flex: 1;
 }
 .content-pesanan li:not(.head){
-    border: 1px solid var(--clr-primary);
+    border-bottom: 1px solid var(--clr-primary);
 }
 
 .content-pesanan li a :is(.right){
     max-width: 200px;
     min-width: 100px;
+}
+
+.status-pesanan{
+    display: block;
+    padding: .3rem 1rem;
+    border: 2px solid green;
+    background: rgba(0, 128, 0, 0.237);
+    width: max-content;
+    color: green;
+    border-radius: 17px;
+}
+span{
+    font-size: 14px;
 }
