@@ -36,6 +36,7 @@ if (!isset($_SESSION['login'])) {
                         <li><a href="./produk.php">Produk</a></li>
                         <li><a href="./tentang-kami.php" class="active">Tentang Kami</a></li>
                         <li><a href="./keranjang.php">Keranjang</a></li>
+                        <li><a href="./pesanan.php">pesanan</a></li>
                         <?php
                         if (isset($_SESSION['login'])) { ?>
                             <li>
