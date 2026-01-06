@@ -12,7 +12,7 @@ main > .left{
     min-width: 200px;
     padding: 1rem;
     background-color: #521C0D;
-    height:500px;
+    /* height:100%; */
 }
 
 main > .left h3{
@@ -151,4 +151,12 @@ main .product .container{
 }
 .icon img{
   width: 100%;
+}
+
+.container-card{
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }

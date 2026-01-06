@@ -138,3 +138,10 @@ main .product .container{
   height: 20px;
   overflow: hidden;
 }
+.container-card{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
