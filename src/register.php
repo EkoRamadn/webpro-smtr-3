@@ -55,7 +55,7 @@ $status = $_GET["status"] ?? '';
                 </div>
                 <button type="submit">Sign Up</button>
             </form>
-            <p class="sign">Have an account?<a href="./login.html" class="clr-secan">Login Now.</a></p>
+            <p class="sign">Have an account?<a href="./login.php" class="clr-secan">Login Now.</a></p>
         </div>
     </div>
 

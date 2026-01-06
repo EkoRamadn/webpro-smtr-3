@@ -7,6 +7,7 @@ require "./logic/getkeranjang.php";
 
 
 $total_harga_dikeranjang = 0;
+$keranjang_id = 0;
 ?>
 
 <!DOCTYPE html>
@@ -61,6 +62,7 @@ $total_harga_dikeranjang = 0;
                     <?php while ($row = mysqli_fetch_assoc($res)) {
                         $subtotal = $row["harga"] * $row['total_produk'];
                         $total_harga_dikeranjang += $subtotal;
+                        $keranjang_id = $row['id'];
                         ?>
                         <tr>
                             <td class="prod">
@@ -91,7 +93,11 @@ $total_harga_dikeranjang = 0;
             </div>
             <div class="btn-grub">
                 <a href="./beranda.php">Lanjut Belanja</a>
-                <button>Checkout</button>
+                <form action="./template/checkout.php" method="POST">
+                    <input type="number" hidden name="total_harga_dikeranjang" value="<?= $total_harga_dikeranjang ?>">
+                    <input type="number" hidden name="id" value="<?= $keranjang_id ?>">
+                    <button type="submit">Checkout</button>
+                </form>
             </div>
         </main>
         <footer>
