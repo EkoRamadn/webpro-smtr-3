@@ -37,7 +37,7 @@ $status = $_GET["status"] ?? '';
                     <input type="text" name="username" id="username">
                 </div>
                 <div class="input-grub">
-                    <label for="fullname">Nsms Lengkap</label>
+                    <label for="fullname">Nama Lengkap</label>
                     <input type="text" name="fullname" id="fullname">
                 </div>
                 <div class="input-grub">

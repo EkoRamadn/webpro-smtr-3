@@ -83,15 +83,15 @@ if (!isset($_SESSION['login'])) {
                                     <table>
                                         <tr>
                                             <th>Nama</th>
-                                            <td>: Cahyo </td>
+                                            <td>: Cahyo Saputra </td>
                                         </tr>
                                         <tr>
                                             <th>Nis</th>
-                                            <td>: 24104410087</td>
+                                            <td>: 24104410078</td>
                                         </tr>
                                         <tr>
                                             <th>Alamat</th>
-                                            <td>: Bence, Garum</td>
+                                            <td>: Sembon,Garum</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -110,11 +110,11 @@ if (!isset($_SESSION['login'])) {
                                         </tr>
                                         <tr>
                                             <th>Nis</th>
-                                            <td>: 24104410087</td>
+                                            <td>: 24104410051</td>
                                         </tr>
                                         <tr>
                                             <th>Alamat</th>
-                                            <td>: Bence, Garum</td>
+                                            <td>: Kepanjenlor</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -123,21 +123,21 @@ if (!isset($_SESSION['login'])) {
                         <li>
                             <div class="anggota">
                                 <div class="top">
-                                    <img src="../public/img/team/dimas.webp" alt="">
+                                    <img style="scale: 1.2;" src="../public/img/team/dimas.webp" alt="">
                                 </div>
                                 <div class="btm">
                                     <table>
                                         <tr>
                                             <th>Nama</th>
-                                            <td>: Dimas </td>
+                                            <td>: Dimas Akbar </td>
                                         </tr>
                                         <tr>
                                             <th>Nis</th>
-                                            <td>: 24104410087</td>
+                                            <td>: 24104410059</td>
                                         </tr>
                                         <tr>
                                             <th>Alamat</th>
-                                            <td>: Bence, Garum</td>
+                                            <td>: Wonorejo</td>
                                         </tr>
                                     </table>
                                 </div>
