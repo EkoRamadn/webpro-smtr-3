@@ -130,7 +130,7 @@ if (!$data) {
 
                             <form action="logic/update_status_pesanan.php" method="POST">
                                 <input type="hidden" name="id" value="<?= $id_pesanan ?>">
-                                <input type="hidden" name="status_baru" value="Dikonfirmasi"> <button type="submit"
+                                <input type="hidden" name="status_baru" value="Pay"> <button type="submit"
                                     class="btn-save">Terima & Konfirmasi</button>
                             </form>
                         </div>
@@ -138,9 +138,9 @@ if (!$data) {
 
                     <?php
                 else:
-                    $urutan_status = ['Dikonfirmasi', 'Diproses', 'Dikirim', 'Selesai'];
+                    $urutan_status = ['Pay', 'Process', 'Deliver', 'Completed'];
                     $current_index = array_search($status_sekarang, $urutan_status);
-                    if ($status_sekarang === 'Selesai') {
+                    if ($status_sekarang === 'Completed') {
                         $current_index = count($urutan_status) - 1;
                     }
 
@@ -151,11 +151,11 @@ if (!$data) {
                     $btn_text = "";
                     if ($current_index < 3) {
                         $next_status = $urutan_status[$current_index + 1];
-                        if ($status_sekarang == 'Dikonfirmasi')
+                        if ($status_sekarang == 'Pay')
                             $btn_text = "Proses Pesanan (Packing)";
-                        elseif ($status_sekarang == 'Diproses')
+                        elseif ($status_sekarang == 'Process')
                             $btn_text = "Kirim Barang";
-                        elseif ($status_sekarang == 'Dikirim')
+                        elseif ($status_sekarang == 'Deliver')
                             $btn_text = "Selesaikan Pesanan";
                     }
                     ?>
