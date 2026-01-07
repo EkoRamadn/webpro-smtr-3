@@ -1,0 +1,133 @@
+<?php
+require "./logic/koneksi.php";
+
+$query_pemasukan = mysqli_query($_CONNEC, "SELECT SUM(total_pesanan) as total FROM pesanan WHERE status_pesanan = 'Selesai'");
+$data_pemasukan = mysqli_fetch_assoc($query_pemasukan);
+$total_pemasukan = $data_pemasukan['total'];
+
+if ($total_pemasukan == null) {
+    $total_pemasukan = 0;
+}
+
+$query_pending = mysqli_query($_CONNEC, "SELECT COUNT(*) as total FROM pesanan WHERE status_pesanan IN ('Menunggu Pembayaran', 'Dikemas', 'Dikirim')");
+$data_pending = mysqli_fetch_assoc($query_pending);
+$total_pending = $data_pending['total'];
+
+$query_stok = mysqli_query($_CONNEC, "SELECT COUNT(*) as total FROM produk WHERE stok <= 10");
+$data_stok = mysqli_fetch_assoc($query_stok);
+$jumlah_stok_tipis = $data_stok['total'];
+
+$query_produk = mysqli_query($_CONNEC, "SELECT COUNT(*) as total FROM produk");
+$data_produk = mysqli_fetch_assoc($query_produk);
+$total_produk = $data_produk['total'];
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="./style/dashboard.css" />
+</head>
+
+<body>
+    <div class="frame_utama">
+        <div class="frame_header">
+            <div class="home_title">
+                <img class="icon" src="../public/icon/material-symbols--menu.png" alt="icon_menu" />
+                <p class="title_header">Dashboard</p>
+            </div>
+            <div class="frame_button">
+                <a href="/index.php">
+                    <div class="button_header">
+                        <img class="icon" src="../public/icon/material-symbols--store.png" alt="icon_store" />
+                        <p class="button_text">Store</p>
+                    </div>
+                </a>
+                <a href="index.php">
+                    <div class="button_header">
+                        <img class="icon" src="../public/icon/material-symbols--logout.png" alt="icon_logout" />
+                        <p class="button_text">Logout</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <hr style="width: 100%; color: #3f3f3f" />
+
+        <div class="frame_tengah">
+            <div class="sidebar">
+                <a href="index.php">
+                    <div class="sidebar_menu_active">
+                        <img class="icon" src="../public/icon/material-symbols--dashboard.png" alt="icon_dashboard" />
+                        <p class="button_text">Dashboard</p>
+                    </div>
+                </a>
+                <a href="data_produk.php">
+                    <div class="sidebar_menu">
+                        <img class="icon" src="../public/icon/gridicons--product.png" alt="icon_data_produk" />
+                        <p class="button_text">Data Produk</p>
+                    </div>
+                </a>
+                <a href="data_pesanan.php">
+                    <div class="sidebar_menu">
+                        <img class="icon" src="../public/icon/lets-icons--order.png" alt="icon_data_pesanan" />
+                        <p class="button_text">Data Pesanan</p>
+                    </div>
+                </a>
+            </div>
+            <div class="content">
+                <div class="banner-container">
+                    <div class="banner-text">
+                        <h1>Selamat Datang, Admin!</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum suscipit ea error pariatur
+                            molestiae. Eveniet laborum magnam quia aliquid a nam, veritatis, doloribus voluptatem, harum
+                            aspernatur ratione dolorem ab exercitationem?</p>
+                    </div>
+                    <img src="/iwcr00kjc38e1.jpeg" alt="Banner Dashboard">
+                </div>
+                <div class="frame_card">
+                    <div class="card">
+                        <p class="button_text" style="font-weight: bold">Total Pemasukan</p>
+                        <img src="../public/icon/ic--baseline-payment.png" alt="" style="width: 80px; height: 80px" />
+                        <p>Rp <?php echo number_format($total_pemasukan, 0, ',', '.') ?></p>
+                    </div>
+                    <div class="card">
+                        <p style="font-weight: bold">Pesanan Perlu Diproses</p>
+                        <img src="../public/icon/material-symbols--pending-actions.png" alt="icon_total_pesanan"
+                            style="width: 80px; height: 80px" />
+                        <p><?php echo $total_pending ?> Pesanan</p>
+                    </div>
+                    <div class="card">
+                        <p class="button_text" style="font-weight: bold">Stok Menipis</p>
+                        <img src="../public/icon/mingcute--warning-line.png" alt="icon_stok_menipis"
+                            style="width: 80px; height: 80px" />
+                        <p>
+                            <?php echo $jumlah_stok_tipis ?> Item
+                        </p>
+                    </div>
+                    <div class="card">
+                        <p class="button_text" style="font-weight: bold">Total Produk</p>
+                        <img src="../public/icon/gridicons--product.png" alt="icon_total_produk"
+                            style="width: 80px; height: 80px" />
+                        <p>
+                            <?php echo $total_produk ?> Item
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
