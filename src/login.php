@@ -1,8 +1,17 @@
 <?php
 session_start();
+
 if (isset($_SESSION['login'])) {
-    header("Location: ./beranda.php");
+    if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+        header("Location: ./src/index.php");
+    } else {
+        header("Location: ./beranda.php");
+    }
+    exit;
 }
+
+// $_SESSION['user_id'] = $data['id'];
+// $_SESSION['nama_lengkap'] = $data['nama_lengkap'];
 
 $status = $_GET["status"] ?? '';
 ?>

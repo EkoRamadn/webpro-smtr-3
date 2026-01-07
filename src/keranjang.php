@@ -64,7 +64,7 @@ $keranjang_id = 0;
                         // var_dump($row);
                         $subtotal = $row["harga"] * $row['total_produk'];
                         $total_harga_dikeranjang += $subtotal;
-                        $keranjang_id = $row['id'];
+                        $keranjang_id = $row['keranjang_id'];
                         ?>
                         <tr>
                             <td class="prod">

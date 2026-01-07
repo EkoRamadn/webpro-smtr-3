@@ -19,9 +19,9 @@ $sql = "SELECT kp.*, p.nama, p.harga, p.gambar, p.stok
 
 $resdata1 = mysqli_query($_CONNEC, $sql) or die("SQL Error: " . mysqli_error($_CONNEC));
 
-if (mysqli_num_rows($resdata1) === 0) {
-    die("Keranjang kosong");
-}
+// if (mysqli_num_rows($resdata1) === 0) {
+//     die("Keranjang kosong");
+// }
 
 $stok_tidak_cukup = [];
 $produk_data = [];
@@ -47,7 +47,7 @@ $no_pesanan = "PC00" . $user_id . $keranjang_id;
 $sql1 = "INSERT INTO pesanan
         (no_pesanan, user_id, total_pesanan, status_pesanan, pembayaran, nama, alamat, no_hp, created_at)
         VALUES
-        ('$no_pesanan', '$user_id', '$total_pesanan', 'pay', '$pembayaran', '$fullname', '$alamat', '$no_hp','$created_at')";
+        ('$no_pesanan', '$user_id', '$total_pesanan', 'pending', '$pembayaran', '$fullname', '$alamat', '$no_hp','$created_at')";
 
 $respesanan = mysqli_query($_CONNEC, $sql1) or die("SQL Error: " . mysqli_error($_CONNEC));
 $pesanan_id = mysqli_insert_id($_CONNEC);
@@ -73,8 +73,8 @@ foreach ($produk_data as $row) {
     mysqli_query($_CONNEC, $update_stok) or die("SQL Error: " . mysqli_error($_CONNEC));
 }
 
-mysqli_query($_CONNEC, "DELETE FROM keranjang_produk WHERE keranjang_id = $keranjang_id");
-mysqli_query($_CONNEC, "DELETE FROM keranjang WHERE id = $keranjang_id");
+$sql_cleanup = "UPDATE keranjang SET status = 'checkout', updated_at = NOW() WHERE id = $keranjang_id";
+mysqli_query($_CONNEC, $sql_cleanup) or die("Gagal update keranjang: " . mysqli_error($_CONNEC));
 
 header("Location: ../template/status-pesanan.php?id=$pesanan_id");
 exit;
