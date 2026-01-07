@@ -1,13 +1,14 @@
-<!-- <?php
+<?php
 session_start();
-require "./logic/product.php";
+require "../logic/getUserData.php";
 
 if (!isset($_SESSION['login'])) {
-    header("Location: ./login.php");
+    header("Location: ../login.php");
 }
-
-$status = $_GET['status'] ?? "";
-?> -->
+$userData = mysqli_fetch_assoc($resuser);
+$keranjang_id = $_POST['id'] ?? "";
+$total_harga = $_POST['total_harga_dikeranjang'];
+?>
 
 
 <!DOCTYPE html>
@@ -17,7 +18,7 @@ $status = $_GET['status'] ?? "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
-    <link rel="stylesheet" href="./style/checkoput.css">
+    <link rel="stylesheet" href="../style/checkoput.css">
 </head>
 
 <body>
@@ -25,7 +26,7 @@ $status = $_GET['status'] ?? "";
         <header class="navigation">
             <div class="logo">
                 <div class="left">
-                    <img src="../public/logo.png" alt="">
+                    <img src="../../public/logo.png" alt="">
                 </div>
                 <div class="right">
                     <h1>UMKM<span class="clr-primary">.Batik</span></h1>
@@ -34,41 +35,28 @@ $status = $_GET['status'] ?? "";
             <nav>
                 <form action="">
                     <ul>
-                        <li><a href="./beranda.php" class="active">Home</a></li>
-                        <li><a href="./produk.php">Produk</a></li>
-                        <li><a href="./tentang-kami.php">Tentang Kami</a></li>
-                        <li><a href="./keranjang.php">Keranjang</a></li>
-                        <!-- <?php
-                        if (isset($_SESSION['login'])) { ?> -->
+                        <li><a href="../beranda.php">Kembali</a></li>
+                        <?php
+                        if (isset($_SESSION['login'])) { ?>
+                            <li>
+                                <a href="../template/peringatan.php?tipe=peringatan&pesan=Apakah+anda+yakin+ingin+keluar?&kembali=../beranda.php&lanjut=../logic/logout.php"
+                                    class="active" id="logout">
+                                    Log Out
+                                </a>
+                            </li>
+                        <?php } else { ?>
+                            <li><a href="../login.php" class="active" id="logout" id="login">Log In</a></li>
 
-                        <li>
-                            <a href="./template/peringatan.php?tipe=peringatan&pesan=Apakah+anda+yakin+ingin+keluar?&kembali=../beranda.php&lanjut=../logic/logout.php"
-                                class="active" id="logout">
-                                Log Out
-                            </a>
-                        </li>
-
-                        <!-- <?php } else { ?>
-
-                        <li><a href="./login.php" class="active" id="logout" id="login">Log In</a></li>
-
-                        <?php } ?> -->
+                        <?php } ?>
                     </ul>
                 </form>
             </nav>
         </header>
-        <!-- <?php
-        if ($status === 'berhasil') {
-            echo '<p class="notif-sukses">Berhasil: Produk Ditambahkan.</p>';
-        } elseif ($status === 'gagal') {
-            echo '<p class="notif-gagal">Gagal: Produk Gagal Ditambahkan</p>';
-        }
-        ?> -->
         <main>
             <div class="top">
-                <h1>Checkout</h1>
+                <h1 class="title">Checkout Keranjang</h1>
             </div>
-            <form action="" class="content-checkout">
+            <form action="../logic/addpesanan.php" class="content-checkout" method="POST">
                 <table>
                     <tr class="head-form">
                         <th colspan="3">
@@ -78,7 +66,8 @@ $status = $_GET['status'] ?? "";
                     <tr>
                         <th>Nama</th>
                         <td colspan="2">
-                            : <input type="text" placeholder="Nama Lengkap">
+                            : <input type="text" name="fullname" value="<?= $userData['nama_lengkap'] ?>"
+                                placeholder="Nama Lengkap">
                         </td>
                     </tr>
                     <tr>
@@ -86,7 +75,7 @@ $status = $_GET['status'] ?? "";
                             Alamat
                         </th>
                         <td colspan="2">
-                            : <input type="text" placeholder="Alamat">
+                            : <input type="text" name="addres" value="<?= $userData['alamat'] ?>" placeholder="Alamat">
                         </td>
                     </tr>
                     <tr>
@@ -94,7 +83,7 @@ $status = $_GET['status'] ?? "";
                             No. HP
                         </th>
                         <td colspan="2">
-                            : <input type="number" placeholder="0855..">
+                            : <input type="number" name="no_hp" value="<?= $userData['no_hp'] ?>" placeholder="0855..">
                         </td>
                     </tr>
                     <tr class="head-form">
@@ -106,15 +95,15 @@ $status = $_GET['status'] ?? "";
                         <td colspan="3" class="payment">
                             <div class="left">
                                 <div class="input-grub">
-                                    <input type="radio" name="metode" value="Tranfer Bank" id="tranfer-bank">
+                                    <input type="radio" name="metode" required value="Tranfer Bank" id="tranfer-bank">
                                     <label for="tranfer-bank">Tranfer Bank</label>
                                 </div>
                                 <div class="input-grub">
-                                    <input type="radio" name="metode" value="e-wallet" id="e-wallet">
+                                    <input type="radio" name="metode" required value="e-wallet" id="e-wallet">
                                     <label for="e-wallet">E-Wallet</label>
                                 </div>
                                 <div class="input-grub">
-                                    <input type="radio" name="metode" value="cod" id="cod">
+                                    <input type="radio" name="metode" required value="cod" id="cod">
                                     <label for="cod">COD</label>
                                 </div>
                             </div>
@@ -126,7 +115,17 @@ $status = $_GET['status'] ?? "";
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="3" class="btm-tbl">
+                            <p>Total: Rp. <?= number_format($total_harga, 0, ',', '.') ?></p>
+                        </td>
+                    </tr>
                 </table>
+                <input hidden name="total_pesanan" value="<?= $total_harga ?>" type="number">
+                <input hidden name="id" value="<?= $keranjang_id ?>" type="number">
+                <div class="flex">
+                    <button type="submit">Buat Pesanan</button>
+                </div>
             </form>
         </main>
         <footer>
@@ -155,19 +154,19 @@ $status = $_GET['status'] ?? "";
             <div class="end">
                 <h3>Creator</h3>
                 <ul>
-                    <li><a href="">Rado Arganata</a></li>
-                    <li><a href="">Cahyo</a></li>
-                    <li><a href="">Dimas Surga</a></li>
+                    <li><a href="">Handika Rado Arganata</a></li>
+                    <li><a href="">Cahyo Saputra</a></li>
+                    <li><a href="">Dimas Akbar Maulana</a></li>
                     <li><a href="">Eko Ramadani</a></li>
                 </ul>
             </div>
         </footer>
     </div>
-    <!-- <?php if ($MODE === 'dev') { ?> -->
-    <div class="mode-dev" id="mode-dev">
-        <span>Development</span>
-    </div>
-    <!-- <?php } ?> -->
+    <?php if ($MODE === 'dev') { ?>
+        <div class="mode-dev" id="mode-dev">
+            <span>Development</span>
+        </div>
+    <?php } ?>
 </body>
 
 </html>

@@ -20,7 +20,7 @@ $status = $_GET['status'] ?? "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda</title>
+    <title>Produk</title>
     <link rel="stylesheet" href="./style/produk.css">
 </head>
 
@@ -42,6 +42,7 @@ $status = $_GET['status'] ?? "";
                         <li><a href="./produk.php" class="active">Produk</a></li>
                         <li><a href="./tentang-kami.php">Tentang Kami</a></li>
                         <li><a href="./keranjang.php">Keranjang</a></li>
+                        <li><a href="./pesanan.php">pesanan</a></li>
                         <?php
                         if (isset($_SESSION['login'])) { ?>
                             <li>
@@ -163,9 +164,9 @@ $status = $_GET['status'] ?? "";
             <div class="end">
                 <h3>Creator</h3>
                 <ul>
-                    <li><a href="">Rado Arganata</a></li>
-                    <li><a href="">Cahyo</a></li>
-                    <li><a href="">Dimas Surga</a></li>
+                    <li><a href="">Handika Rado Arganata</a></li>
+                    <li><a href="">Cahyo Saputra</a></li>
+                    <li><a href="">Dimas Akbar Maulana</a></li>
                     <li><a href="">Eko Ramadani</a></li>
                 </ul>
             </div>

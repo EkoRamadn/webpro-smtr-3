@@ -61,7 +61,6 @@ if ($checkRes && mysqli_num_rows($checkRes) > 0) {
                   VALUES ($keranjang_id, $produk_id, $total_produk)";
     mysqli_query($_CONNEC, $sqlInsert);
 
-    // echo "INSERT: produk baru ditambahkan ke keranjang";
     header("Location: $oks?status=berhasil");
 }
 ?>

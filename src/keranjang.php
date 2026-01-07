@@ -7,6 +7,7 @@ require "./logic/getkeranjang.php";
 
 
 $total_harga_dikeranjang = 0;
+$keranjang_id = 0;
 ?>
 
 <!DOCTYPE html>
@@ -57,10 +58,13 @@ $total_harga_dikeranjang = 0;
                         <th>Harga</th>
                         <th>Jumlah</th>
                         <th>Subtotal</th>
+                        <th>aksi</th>
                     </tr>
                     <?php while ($row = mysqli_fetch_assoc($res)) {
+                        // var_dump($row);
                         $subtotal = $row["harga"] * $row['total_produk'];
                         $total_harga_dikeranjang += $subtotal;
+                        $keranjang_id = $row['id'];
                         ?>
                         <tr>
                             <td class="prod">
@@ -80,6 +84,11 @@ $total_harga_dikeranjang = 0;
                                 </p>
                             </td>
                             <td>Rp. <?= number_format($subtotal, 0, ',', '.') ?></td>
+                            <td><a href="./logic/deleteprodukkeranjang.php?id=<?= $row["id"] ?>" class="icn">
+                                    <div class="icon">
+                                        <img src="../public/icon/delete.png" alt="">
+                                    </div>
+                                </a></td>
                         </tr>
                     <?php } ?>
                     <tr>
@@ -91,7 +100,11 @@ $total_harga_dikeranjang = 0;
             </div>
             <div class="btn-grub">
                 <a href="./beranda.php">Lanjut Belanja</a>
-                <button>Checkout</button>
+                <form action="./template/checkout.php" method="POST">
+                    <input type="number" hidden name="total_harga_dikeranjang" value="<?= $total_harga_dikeranjang ?>">
+                    <input type="number" hidden name="id" value="<?= $keranjang_id ?>">
+                    <button type="submit">Checkout</button>
+                </form>
             </div>
         </main>
         <footer>
@@ -120,9 +133,9 @@ $total_harga_dikeranjang = 0;
             <div class="end">
                 <h3>Creator</h3>
                 <ul>
-                    <li><a href="">Rado Arganata</a></li>
-                    <li><a href="">Cahyo</a></li>
-                    <li><a href="">Dimas Surga</a></li>
+                    <li><a href="">Handika Rado Arganata</a></li>
+                    <li><a href="">Cahyo Saputra</a></li>
+                    <li><a href="">Dimas Akbar Maulana</a></li>
                     <li><a href="">Eko Ramadani</a></li>
                 </ul>
             </div>

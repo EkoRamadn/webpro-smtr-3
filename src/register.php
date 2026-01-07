@@ -37,7 +37,7 @@ $status = $_GET["status"] ?? '';
                     <input type="text" name="username" id="username">
                 </div>
                 <div class="input-grub">
-                    <label for="fullname">Nsms Lengkap</label>
+                    <label for="fullname">Nama Lengkap</label>
                     <input type="text" name="fullname" id="fullname">
                 </div>
                 <div class="input-grub">
@@ -55,7 +55,7 @@ $status = $_GET["status"] ?? '';
                 </div>
                 <button type="submit">Sign Up</button>
             </form>
-            <p class="sign">Have an account?<a href="./login.html" class="clr-secan">Login Now.</a></p>
+            <p class="sign">Have an account?<a href="./login.php" class="clr-secan">Login Now.</a></p>
         </div>
     </div>
 

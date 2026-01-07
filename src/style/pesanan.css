@@ -1,0 +1,72 @@
+@import "./component.css";
+
+main{
+    /* background-color: blanchedalmond; */
+    margin-top: 0;
+    padding-top: 20px;
+    min-height: 500px;
+}
+main .head h1{
+     font-weight: 700;
+    color: var(--clr-primary);
+    font-size: 23px;
+    padding-inline: 20px;
+    border-radius: 0;
+}
+
+.content-pesanan{
+    /* background-color: blanchedalmond; */
+    padding: 20px 30px;
+}
+.content-pesanan li{
+    display: block;
+    /* background-color: blue; */
+    width: 100%;
+    padding: .8rem;
+    transition: all .3 linear;
+}
+.content-pesanan li a{
+    color: var(--clr-text);
+}
+.content-pesanan li a .ctn{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.content-pesanan li.head{
+    background-color: var(--clr-primary);
+    padding-block: .7rem;
+}
+.content-pesanan li.head a{
+    color: white;
+    font-weight: 600;
+}
+.content-pesanan li:hover:not(.head){
+    background-color: blanchedalmond;
+}
+
+.content-pesanan li a :is(.left,.center){
+    flex: 1;
+}
+.content-pesanan li:not(.head){
+    border-bottom: 1px solid var(--clr-primary);
+}
+
+.content-pesanan li a :is(.right){
+    max-width: 200px;
+    min-width: 100px;
+}
+
+.status-pesanan{
+    display: block;
+    padding: .3rem 1rem;
+    border: 2px solid green;
+    background: rgba(0, 128, 0, 0.237);
+    width: max-content;
+    color: green;
+    border-radius: 17px;
+}
+span{
+    font-size: 14px;
+}
