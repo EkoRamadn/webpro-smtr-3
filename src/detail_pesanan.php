@@ -1,6 +1,16 @@
 <?php
 require "./logic/koneksi.php";
 
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: ./login.php");
+}
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ./beranda.php");
+    exit;
+}
+
 $id_pesanan = isset($_GET['id']) ? $_GET['id'] : '';
 
 if (empty($id_pesanan)) {
