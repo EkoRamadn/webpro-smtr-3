@@ -62,7 +62,7 @@ $total_produk = $data_produk['total'];
                 <p class="title_header">Dashboard</p>
             </div>
             <div class="frame_button">
-                <a href="/beranda.php">
+                <a href="./beranda.php">
                     <div class="button_header">
                         <img class="icon" src="../public/icon/material-symbols--store.png" alt="icon_store" />
                         <p class="button_text">Store</p>
