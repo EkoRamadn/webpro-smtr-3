@@ -250,8 +250,6 @@ if (!$data) {
                         <div
                             style="display:flex; justify-content:flex-end; gap:12px; border-top:1px solid #3f3f3f; padding-top:20px;">
 
-                            <button class="btn-cancel" onclick="window.print()">Cetak Invoice</button>
-
                             <?php
                             // Kalau status bukan 'complete' dan bukan 'Dibatalkan', TAMPILKAN FORM
                             if ($status_sekarang != 'complete' && $status_sekarang != 'Dibatalkan'):
