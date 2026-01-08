@@ -6,6 +6,11 @@ if (!isset($_SESSION['login'])) {
     header("Location: ./login.php");
 }
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ./beranda.php");
+    exit;
+}
+
 $admin_id = $_SESSION['user_id'] ?? 0;
 $nama_admin = "Admin";
 

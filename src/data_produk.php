@@ -6,6 +6,11 @@ if (!isset($_SESSION['login'])) {
     header("Location: ./login.php");
 }
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ./beranda.php");
+    exit;
+}
+
 $query_produk = mysqli_query($_CONNEC, "SELECT produk.*, kategori.name as nama_kategori 
                               FROM produk 
                               JOIN kategori ON produk.kategori_id = kategori.id 

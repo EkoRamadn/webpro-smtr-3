@@ -6,6 +6,11 @@ if (!isset($_SESSION['login'])) {
     header("Location: ./login.php");
 }
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ./beranda.php");
+    exit;
+}
+
 $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC");
 ?>
 
