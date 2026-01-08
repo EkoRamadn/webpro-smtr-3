@@ -62,13 +62,13 @@ $total_produk = $data_produk['total'];
                 <p class="title_header">Dashboard</p>
             </div>
             <div class="frame_button">
-                <a href="/index.php">
+                <a href="/beranda.php">
                     <div class="button_header">
                         <img class="icon" src="../public/icon/material-symbols--store.png" alt="icon_store" />
                         <p class="button_text">Store</p>
                     </div>
                 </a>
-                <a href="../logic/logout.php">
+                <a href="./logic/logout.php">
                     <div class="button_header">
                         <img class="icon" src="../public/icon/material-symbols--logout.png" alt="icon_logout" />
                         <p class="button_text">Logout</p>
@@ -106,11 +106,10 @@ $total_produk = $data_produk['total'];
                         <h1 style="text-transform: capitalize;">Selamat Datang,
                             <?php echo htmlspecialchars($nama_admin); ?>!
                         </h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum suscipit ea error pariatur
-                            molestiae. Eveniet laborum magnam quia aliquid a nam, veritatis, doloribus voluptatem, harum
-                            aspernatur ratione dolorem ab exercitationem?</p>
+                        <p>Pantau performa penjualan batikmu hari ini. Kelola pesanan masuk, cek konfirmasi pembayaran,
+                            dan pastikan stok produk unggulan selalu tersedia untuk pelanggan.</p>
                     </div>
-                    <img src="/iwcr00kjc38e1.jpeg" alt="Banner Dashboard">
+                    <img src="/banner.jpg" alt="Banner Dashboard">
                 </div>
                 <div class="frame_card">
                     <div class="card">

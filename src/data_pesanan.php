@@ -43,7 +43,7 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                 <p class="title_header">Data Pesanan</p>
             </div>
             <div class="frame_button">
-                <a href="#">
+                <a href="./beranda.php">
                     <div class="button_header">
                         <img class="icon" src="../public/icon/material-symbols--store.png">
                         <p class="button_text">Store</p>
