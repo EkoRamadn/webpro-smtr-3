@@ -2,22 +2,24 @@
 require "koneksi.php";
 
 if (isset($_POST['simpan'])) {
-    $nama = $_POST['nama'];
+    $nama = htmlspecialchars($_POST['nama']);
     $kategori = $_POST['kategori_id'];
     $harga = $_POST['harga'];
     $stok = $_POST['stok'];
-    $deskripsi = $_POST['deskripsi'];
+    $deskripsi = htmlspecialchars($_POST['deskripsi']);
 
-    $gambar = $_FILES['gambar']['name'];
-    $tmp = $_FILES['gambar']['tmp_name'];
+    $gambar = $_POST['gambar'];
 
-    if ($gambar != "") {
-        move_uploaded_file($tmp, "../../public/img/" . $gambar);
-    } else {
-        $gambar = "";
+    if (empty($gambar)) {
+        $gambar = "https://placehold.co/400?text=No+Image";
     }
 
-    mysqli_query($_CONNEC, "INSERT INTO produk (nama, kategori_id, harga, stok, deskripsi, gambar) VALUES ('$nama', '$kategori', '$harga', '$stok', '$deskripsi', '$gambar')");
+    $harga_raw = $_POST['harga'];
+    $harga = str_replace('.', '', $harga_raw);
+
+    $query = "INSERT INTO produk (nama, kategori_id, harga, stok, deskripsi, gambar) VALUES ('$nama', '$kategori', '$harga', '$stok', '$deskripsi', '$gambar')";
+
+    mysqli_query($_CONNEC, $query);
 
     header("location: ../data_produk.php");
 }

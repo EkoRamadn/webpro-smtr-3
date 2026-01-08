@@ -25,7 +25,7 @@ if (!$data) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detail Pesanan #
-        <?= $data['no_pesanan'] ?>
+        <?php echo $data['no_pesanan'] ?>
     </title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./style/dashboard.css" />
@@ -78,7 +78,7 @@ if (!$data) {
                 <?php
                 $status_sekarang = $data['status_pesanan'];
 
-                if ($status_sekarang == 'Menunggu Pembayaran'):
+                if ($status_sekarang == 'pending'):
                     ?>
 
                     <div
@@ -130,7 +130,7 @@ if (!$data) {
 
                             <form action="logic/update_status_pesanan.php" method="POST">
                                 <input type="hidden" name="id" value="<?= $id_pesanan ?>">
-                                <input type="hidden" name="status_baru" value="Pay"> <button type="submit"
+                                <input type="hidden" name="status_baru" value="pay"> <button type="submit"
                                     class="btn-save">Terima & Konfirmasi</button>
                             </form>
                         </div>
@@ -138,24 +138,29 @@ if (!$data) {
 
                     <?php
                 else:
-                    $urutan_status = ['Pay', 'Process', 'Deliver', 'Completed'];
-                    $current_index = array_search($status_sekarang, $urutan_status);
-                    if ($status_sekarang === 'Completed') {
-                        $current_index = count($urutan_status) - 1;
-                    }
+                    $urutan_db = ['pay', 'procces', 'deliver', 'complete'];
 
-                    if ($current_index === false)
+                    $label_admin = ['Dikonfirmasi', 'Diproses', 'Dikirim', 'Selesai'];
+
+                    $current_index = array_search($status_sekarang, $urutan_db);
+
+                    if ($status_sekarang == 'complete') {
+                        $current_index = 3;
+                    } elseif ($current_index === false) {
                         $current_index = 0;
+                    }
 
                     $next_status = "";
                     $btn_text = "";
+
                     if ($current_index < 3) {
-                        $next_status = $urutan_status[$current_index + 1];
-                        if ($status_sekarang == 'Pay')
+                        $next_status = $urutan_db[$current_index + 1];
+
+                        if ($status_sekarang == 'pay')
                             $btn_text = "Proses Pesanan (Packing)";
-                        elseif ($status_sekarang == 'Process')
-                            $btn_text = "Kirim Barang";
-                        elseif ($status_sekarang == 'Deliver')
+                        elseif ($status_sekarang == 'procces')
+                            $btn_text = "Kirim Barang (Input Resi)";
+                        elseif ($status_sekarang == 'deliver')
                             $btn_text = "Selesaikan Pesanan";
                     }
                     ?>
@@ -197,27 +202,22 @@ if (!$data) {
 
                     <div class="stepper-wrapper">
                         <?php
-                        $total_step = count($urutan_status) - 1;
+                        $total_step = count($urutan_db) - 1;
 
-                        if ($status_sekarang === 'Selesai') {
+                        if ($status_sekarang === 'complete') {
                             $progress_width = 100;
                         } else {
-                            $progress_width = ($current_index / $total_step) * 100;
+                            $progress_width = ($total_step > 0) ? ($current_index / $total_step) * 100 : 0;
                         }
-
                         ?>
 
-                        <div class="progress-line <?= $status_sekarang === 'Selesai' ? 'done' : '' ?>"
+                        <div class="progress-line <?= $status_sekarang === 'complete' ? 'done' : '' ?>"
                             style="width: <?= $progress_width ?>%;"></div>
 
-                        <?php foreach ($urutan_status as $key => $label): ?>
+                        <?php foreach ($urutan_db as $key => $status_code): ?>
                             <div class="stepper-item <?= $key <= $current_index ? 'active' : '' ?>">
-                                <div class="step-counter">
-                                    <?= $key + 1 ?>
-                                </div>
-                                <div class="step-name">
-                                    <?= $label ?>
-                                </div>
+                                <div class="step-counter"><?= $key + 1 ?></div>
+                                <div class="step-name"><?= $label_admin[$key] ?></div>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -250,24 +250,28 @@ if (!$data) {
                         <div
                             style="display:flex; justify-content:flex-end; gap:12px; border-top:1px solid #3f3f3f; padding-top:20px;">
 
-                            <form action="logic/update_status_pesanan.php" method="POST">
-                                <input type="hidden" name="id" value="<?= $id_pesanan ?>">
+                            <button class="btn-cancel" onclick="window.print()">Cetak Invoice</button>
 
-                                <?php if ($status_sekarang !== 'Selesai' && $status_sekarang !== 'Dibatalkan'): ?>
+                            <?php
+                            // Kalau status bukan 'complete' dan bukan 'Dibatalkan', TAMPILKAN FORM
+                            if ($status_sekarang != 'complete' && $status_sekarang != 'Dibatalkan'):
+                                ?>
+                                <form action="logic/update_status_pesanan.php" method="POST">
+                                    <input type="hidden" name="id" value="<?= $id_pesanan ?>">
                                     <input type="hidden" name="status_baru" value="<?= $next_status ?>">
-                                <?php endif; ?>
+                                    <button type="submit" class="btn-save">
+                                        <?= $btn_text ?> &rarr;
+                                    </button>
+                                </form>
 
-                                <button type="submit" class="btn-save" <?= ($status_sekarang === 'Selesai' || $status_sekarang === 'Dibatalkan') ? 'disabled' : '' ?>> <?php
-                                            if ($status_sekarang === 'Selesai') {
-                                                echo 'Pesanan Selesai';
-                                            } elseif ($status_sekarang === 'Dibatalkan') {
-                                                echo 'Pesanan Dibatalkan';
-                                            } else {
-                                                echo $btn_text;
-                                            }
-                                            ?> </button>
-                            </form>
+                            <?php else: ?>
 
+                                <button class="btn-save"
+                                    style="background: #27272a; color: #4ade80; cursor: default; border:none;" disabled>
+                                    <?= $status_sekarang == 'complete' ? '&#10003; Pesanan Selesai' : 'Pesanan Dibatalkan' ?>
+                                </button>
+
+                            <?php endif; ?>
                         </div>
 
 

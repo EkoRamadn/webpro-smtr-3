@@ -27,22 +27,22 @@ $pesanan = mysqli_fetch_assoc($res);
 
 
 $st = $pesanan['status_pesanan'];
-$statuses = ['pendding', 'pay', 'procces', 'deliver', 'complate'];
+$statuses = ['pending', 'pay', 'procces', 'deliver', 'complete'];
 
-$pendding = false;
+$pending = false;
 $pay = false;
 $procces = false;
 $deliver = false;
-$complate = false;
+$complete = false;
 
 $index = array_search($st, $statuses);
 
 if ($index !== false) {
-    $pendding = $index >= 0;
+    $pending = $index >= 0;
     $pay = $index >= 1;
     $procces = $index >= 2;
     $deliver = $index >= 3;
-    $complate = $index >= 4;
+    $complete = $index >= 4;
 }
 ?>
 
@@ -112,15 +112,15 @@ if ($index !== false) {
                             </a> -->
                             <div id="stepProgressBar">
                                 <div class="step">
-                                    <div class="bullet  <?= ($pendding) ? "completed" : "" ?>">
+                                    <div class="bullet  <?= ($pending) ? "completed" : "" ?>">
                                         <div class="icon">
-                                            <img src="../../public/icon/pendding.png" alt="">
+                                            <img src="../../public/icon/pending.png" alt="">
                                         </div>
                                     </div>
                                     <p class="step-text">Menuggu</p>
                                 </div>
                                 <div class="step">
-                                    <div class="bullet  <?= ($pendding && $pay) ? "completed" : "" ?>">
+                                    <div class="bullet  <?= ($pending && $pay) ? "completed" : "" ?>">
                                         <div class="icon">
                                             <img src="../../public/icon/pay.png" alt="">
                                         </div>
@@ -128,7 +128,7 @@ if ($index !== false) {
                                     <p class="step-text">Pembayaran</p>
                                 </div>
                                 <div class="step">
-                                    <div class="bullet  <?= ($pendding && $pay && $procces) ? "completed" : "" ?>">
+                                    <div class="bullet  <?= ($pending && $pay && $procces) ? "completed" : "" ?>">
                                         <div class="icon">
                                             <img src="../../public/icon/package-proces.png" alt="">
                                         </div>
@@ -137,7 +137,7 @@ if ($index !== false) {
                                 </div>
                                 <div class="step">
                                     <div
-                                        class="bullet  <?= ($pendding && $pay && $procces && $deliver) ? "completed" : "" ?>">
+                                        class="bullet  <?= ($pending && $pay && $procces && $deliver) ? "completed" : "" ?>">
                                         <div class="icon">
                                             <img src="../../public/icon/package-send.png" alt="">
                                         </div>
@@ -146,7 +146,7 @@ if ($index !== false) {
                                 </div>
                                 <div class="step">
                                     <div
-                                        class="bullet  <?= ($pendding && $pay && $procces && $deliver && $complate) ? "completed" : "" ?>">
+                                        class="bullet  <?= ($pending && $pay && $procces && $deliver && $complete) ? "completed" : "" ?>">
                                         <div class="icon">
                                             <img src="../../public/icon/package-rearchive.png" alt="">
                                         </div>

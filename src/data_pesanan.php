@@ -1,6 +1,11 @@
 <?php
 require "./logic/koneksi.php";
 
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: ./login.php");
+}
+
 $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC");
 ?>
 
@@ -15,27 +20,17 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
     <link rel="stylesheet" href="./style/dashboard.css" />
 
     <style>
-        .status-text {
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: capitalize;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .status-selesai,
-        .status-dikirim {
-            color: white;
-        }
-
-        .status-pending,
-        .status-menunggu,
-        .status-dikemas {
-            color: white;
-        }
-
-        .status-batal {
-            color: white;
+        .no-data-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: #151419;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            margin-top: 20px;
+            color: #a1a1aa;
         }
     </style>
 </head>
@@ -45,7 +40,7 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
         <div class="frame_header">
             <div class="home_title">
                 <img class="icon" src="../public/icon/material-symbols--menu.png">
-                <p class="title_header">Dashboard</p>
+                <p class="title_header">Data Pesanan</p>
             </div>
             <div class="frame_button">
                 <a href="#">
@@ -54,9 +49,9 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                         <p class="button_text">Store</p>
                     </div>
                 </a>
-                <a href="index.php">
+                <a href="./logic/logout.php">
                     <div class="button_header">
-                        <img class="icon" src="../public/icon/material-symbols--logout.png">
+                        <img class="icon" src="../public/icon/material-symbols--logout.png" alt="icon_logout" />
                         <p class="button_text">Logout</p>
                     </div>
                 </a>
@@ -67,7 +62,7 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
 
         <div class="frame_tengah">
             <div class="sidebar">
-                <a href="index.php">
+                <a href="dashboard.php">
                     <div class="sidebar_menu">
                         <img class="icon" src="../public/icon/material-symbols--dashboard.png">
                         <p class="button_text">Dashboard</p>
@@ -89,8 +84,9 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
 
             <div class="content">
                 <div class="header-tools">
-                    <div class="search-group" style="width: 100%; max-width: 100%;"> <input type="text" id="inputSearch"
-                            class="input-search" placeholder="Cari No Pesanan / Nama">
+                    <div class="search-group">
+                        <input type="text" id="inputSearch" class="input-search" placeholder="Cari No Pesanan / Nama"
+                            style="text-transform: capitalize;">
                         <button type="button" class="btn-cari" id="searchBtn">
                             <img id="searchIcon" class="icon" src="../public/icon/mdi--magnify.png">
                         </button>
@@ -132,17 +128,31 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                                     </td>
 
                                     <td style="text-align: center;">
-                                        <button type="button" onclick="cekStatusPesanan(
-    <?= $row['id'] ?>,
-    '<?= $row['status_pesanan'] ?>',
-    '<?= $row['no_pesanan'] ?>',
-    '<?= number_format($row['total_pesanan'], 0, ',', '.') ?>',
-    '<?= $row['nama'] ?>',
-    '<?= $row['alamat'] ?>',
-    '<?= $row['no_hp'] ?>'
-)" class="btn-icon-only">
-                                            <img src="../public/icon/lucide--ellipsis.png" class="icon-action">
-                                        </button>
+                                        <div class="action-dropdown">
+                                            <button onclick="toggleDropdown('menu-<?= $row['id'] ?>')" class="btn-kebab">
+                                                <img src="../public/icon/lucide--ellipsis.png" class="icon-action">
+                                            </button>
+
+                                            <div id="menu-<?= $row['id'] ?>" class="dropdown-menu">
+
+                                                <a href="detail_pesanan.php?id=<?= $row['id'] ?>" class="dropdown-item">
+                                                    <img src="../public/icon/mdi--magnify.png" style="width: 16px;">
+                                                    Lihat Detail
+                                                </a>
+
+                                                <?php if ($row['status_pesanan'] == 'Menunggu Pembayaran'): ?>
+                                                    <button class="dropdown-item" onclick="bukaModalKonfirmasi(
+                    '<?= $row['id'] ?>', 
+                    '<?= htmlspecialchars($row['nama']) ?>',
+                    '<?= number_format($row['total_pesanan'], 0, ',', '.') ?>'
+                )">
+                                                        <img src="../public/icon/tabler--check.png" style="width: 16px;">
+                                                        Konfirmasi
+                                                    </button>
+                                                <?php endif; ?>
+
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -162,7 +172,6 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
     <div class="modal-overlay" id="modalKonfirmasi" style="z-index:2000;">
         <div class="form-card" style="max-width:480px; text-align:center;" onclick="event.stopPropagation()">
 
-            <!-- ICON + TITLE -->
             <div style="margin-bottom:20px;">
                 <img src="../public/icon/mingcute--warning-line.png" style="width:44px;">
                 <h3 style="margin:12px 0 6px;">Konfirmasi Pesanan</h3>
@@ -173,12 +182,10 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
 
             <hr style="border:0;border-top:1px solid #27272a;margin:16px 0;">
 
-            <!-- INFO PESANAN -->
             <div style="margin-bottom:24px; text-align:left;">
                 <div id="infoSingkatPesanan"></div>
             </div>
 
-            <!-- ACTION BUTTON -->
             <div style="display:flex; justify-content:flex-end; gap:10px;">
                 <button onclick="tutupKonfirmasi()" class="btn-cancel">
                     Batal
@@ -323,6 +330,57 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
         modal.addEventListener('click', function () {
             tutupKonfirmasi();
         });
+
+        // 1. Fungsi Toggle Dropdown (Wajib Ada)
+        function toggleDropdown(id) {
+            const allMenus = document.getElementsByClassName("dropdown-menu");
+            for (let i = 0; i < allMenus.length; i++) {
+                if (allMenus[i].id !== id) {
+                    allMenus[i].classList.remove('show');
+                }
+            }
+            document.getElementById(id).classList.toggle("show");
+        }
+
+        // 2. Tutup Dropdown kalau klik di luar
+        window.onclick = function (event) {
+            if (!event.target.closest('.btn-kebab')) {
+                const allMenus = document.getElementsByClassName("dropdown-menu");
+                for (let i = 0; i < allMenus.length; i++) {
+                    allMenus[i].classList.remove('show');
+                }
+            }
+            // Logic tutup modal konfirmasi juga bisa ditaruh sini
+            const modal = document.getElementById('modalKonfirmasi');
+            if (event.target == modal) {
+                tutupKonfirmasi();
+            }
+        }
+
+        // 3. Fungsi Buka Modal Konfirmasi (Simpel & Bersih)
+        function bukaModalKonfirmasi(id, nama, total) {
+            document.getElementById('confirm_id').value = id;
+
+            // Tampilkan info ringkas aja (Nama & Total)
+            document.getElementById('infoSingkatPesanan').innerHTML = `
+        <div style="text-align: center; margin-bottom: 20px;">
+            <p style="color: #a1a1aa; font-size: 13px;">Pelanggan</p>
+            <p style="font-weight: 600; font-size: 16px; margin-bottom: 10px; color: white;">${nama}</p>
+            
+            <p style="color: #a1a1aa; font-size: 13px;">Total Tagihan</p>
+            <p style="font-weight: 700; font-size: 20px; color: #4ade80;">Rp ${total}</p>
+        </div>
+        <p style="text-align: center; color: #a1a1aa; font-size: 12px;">
+            (Klik "Lihat Detail" di menu untuk cek produk lengkap)
+        </p>
+    `;
+
+            document.getElementById('modalKonfirmasi').style.display = 'flex';
+        }
+
+        function tutupKonfirmasi() {
+            document.getElementById('modalKonfirmasi').style.display = 'none';
+        }
     </script>
 </body>
 

@@ -1,7 +1,22 @@
 <?php
 require "./logic/koneksi.php";
 
-$query_pemasukan = mysqli_query($_CONNEC, "SELECT SUM(total_pesanan) as total FROM pesanan WHERE status_pesanan = 'Selesai'");
+session_start();
+if (!isset($_SESSION['login'])) {
+    header("Location: ./login.php");
+}
+
+$admin_id = $_SESSION['user_id'] ?? 0;
+$nama_admin = "Admin";
+
+if ($admin_id != 0) {
+    $query_admin = mysqli_query($_CONNEC, "SELECT nama_lengkap FROM user WHERE id = '$admin_id'");
+    if ($row_admin = mysqli_fetch_assoc($query_admin)) {
+        $nama_admin = $row_admin['nama_lengkap'];
+    }
+}
+
+$query_pemasukan = mysqli_query($_CONNEC, "SELECT SUM(total_pesanan) as total FROM pesanan WHERE status_pesanan = 'Complete'");
 $data_pemasukan = mysqli_fetch_assoc($query_pemasukan);
 $total_pemasukan = $data_pemasukan['total'];
 
@@ -9,7 +24,7 @@ if ($total_pemasukan == null) {
     $total_pemasukan = 0;
 }
 
-$query_pending = mysqli_query($_CONNEC, "SELECT COUNT(*) as total FROM pesanan WHERE status_pesanan IN ('Menunggu Pembayaran', 'Dikemas', 'Dikirim')");
+$query_pending = mysqli_query($_CONNEC, "SELECT COUNT(*) as total FROM pesanan WHERE status_pesanan IN ('pending', 'pay', 'procces', 'deliver')");
 $data_pending = mysqli_fetch_assoc($query_pending);
 $total_pending = $data_pending['total'];
 
@@ -53,7 +68,7 @@ $total_produk = $data_produk['total'];
                         <p class="button_text">Store</p>
                     </div>
                 </a>
-                <a href="index.php">
+                <a href="../logic/logout.php">
                     <div class="button_header">
                         <img class="icon" src="../public/icon/material-symbols--logout.png" alt="icon_logout" />
                         <p class="button_text">Logout</p>
@@ -88,7 +103,9 @@ $total_produk = $data_produk['total'];
             <div class="content">
                 <div class="banner-container">
                     <div class="banner-text">
-                        <h1>Selamat Datang, Admin!</h1>
+                        <h1 style="text-transform: capitalize;">Selamat Datang,
+                            <?php echo htmlspecialchars($nama_admin); ?>!
+                        </h1>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum suscipit ea error pariatur
                             molestiae. Eveniet laborum magnam quia aliquid a nam, veritatis, doloribus voluptatem, harum
                             aspernatur ratione dolorem ab exercitationem?</p>
@@ -97,18 +114,18 @@ $total_produk = $data_produk['total'];
                 </div>
                 <div class="frame_card">
                     <div class="card">
-                        <p class="button_text" style="font-weight: bold">Total Pemasukan</p>
-                        <img src="../public/icon/ic--baseline-payment.png" alt="" style="width: 80px; height: 80px" />
+                        <p class="button_text">Total Pemasukan</p>
+                        <img src="../public/icon/tdesign--money.png" alt="" style="width: 80px; height: 80px" />
                         <p>Rp <?php echo number_format($total_pemasukan, 0, ',', '.') ?></p>
                     </div>
                     <div class="card">
-                        <p style="font-weight: bold">Pesanan Perlu Diproses</p>
+                        <p>Pesanan Perlu Diproses</p>
                         <img src="../public/icon/material-symbols--pending-actions.png" alt="icon_total_pesanan"
                             style="width: 80px; height: 80px" />
                         <p><?php echo $total_pending ?> Pesanan</p>
                     </div>
                     <div class="card">
-                        <p class="button_text" style="font-weight: bold">Stok Menipis</p>
+                        <p class="button_text">Stok Menipis</p>
                         <img src="../public/icon/mingcute--warning-line.png" alt="icon_stok_menipis"
                             style="width: 80px; height: 80px" />
                         <p>
@@ -116,7 +133,7 @@ $total_produk = $data_produk['total'];
                         </p>
                     </div>
                     <div class="card">
-                        <p class="button_text" style="font-weight: bold">Total Produk</p>
+                        <p class="button_text">Total Produk</p>
                         <img src="../public/icon/gridicons--product.png" alt="icon_total_produk"
                             style="width: 80px; height: 80px" />
                         <p>
