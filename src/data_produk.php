@@ -54,7 +54,7 @@ $query_kategori_list = mysqli_query($_CONNEC, "SELECT * FROM kategori");
             <div class="frame_button">
                 <a href="beranda.php">
                     <div class="button_header"><img class="icon" src="../public/icon/material-symbols--store.png">
-                        <p class="button_text">Store</p>
+                        <p class="button_text" style="white-space: nowrap;">Kunjungi Toko</p>
                     </div>
                 </a>
                 <a href="./logic/logout.php">

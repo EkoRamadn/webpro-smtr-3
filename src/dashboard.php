@@ -2,8 +2,10 @@
 require "./logic/koneksi.php";
 
 session_start();
+
 if (!isset($_SESSION['login'])) {
     header("Location: ./login.php");
+    exit;
 }
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -21,7 +23,7 @@ if ($admin_id != 0) {
     }
 }
 
-$query_pemasukan = mysqli_query($_CONNEC, "SELECT SUM(total_pesanan) as total FROM pesanan WHERE status_pesanan = 'Complete'");
+$query_pemasukan = mysqli_query($_CONNEC, "SELECT SUM(total_pesanan) as total FROM pesanan WHERE status_pesanan = 'Selesai'");
 $data_pemasukan = mysqli_fetch_assoc($query_pemasukan);
 $total_pemasukan = $data_pemasukan['total'];
 
@@ -29,7 +31,7 @@ if ($total_pemasukan == null) {
     $total_pemasukan = 0;
 }
 
-$query_pending = mysqli_query($_CONNEC, "SELECT COUNT(*) as total FROM pesanan WHERE status_pesanan IN ('pending', 'pay', 'procces', 'deliver')");
+$query_pending = mysqli_query($_CONNEC, "SELECT COUNT(*) as total FROM pesanan WHERE status_pesanan IN ('Menunggu Pembayaran', 'Menunggu Verifikasi', 'Menunggu Konfirmasi', 'Dikemas', 'Dikirim')");
 $data_pending = mysqli_fetch_assoc($query_pending);
 $total_pending = $data_pending['total'];
 
@@ -70,7 +72,7 @@ $total_produk = $data_produk['total'];
                 <a href="./beranda.php">
                     <div class="button_header">
                         <img class="icon" src="../public/icon/material-symbols--store.png" alt="icon_store" />
-                        <p class="button_text">Store</p>
+                        <p class="button_text" style="white-space: nowrap;">Kunjungi Toko</p>
                     </div>
                 </a>
                 <a href="./logic/logout.php">

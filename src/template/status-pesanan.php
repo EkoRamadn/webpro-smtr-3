@@ -4,6 +4,7 @@ require "../logic/koneksi.php";
 
 if (!isset($_SESSION['login'])) {
     header("Location: ../login.php");
+    exit;
 }
 
 if (!isset($_GET['id']) || empty($_GET['id'])) {
@@ -12,7 +13,6 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 }
 
 $id_pesanan = (int) $_GET['id'];
-// echo $id_pesanan;
 
 $sql = "SELECT id,no_pesanan,user_id,total_pesanan,status_pesanan,pembayaran,alamat,nama,no_hp,created_at FROM pesanan WHERE id=$id_pesanan";
 $res = mysqli_query($_CONNEC, $sql);
@@ -25,25 +25,31 @@ if (!$res || mysqli_num_rows($res) === 0) {
 
 $pesanan = mysqli_fetch_assoc($res);
 
+$status_db = $pesanan['status_pesanan'];
 
-$st = $pesanan['status_pesanan'];
-$statuses = ['pending', 'pay', 'procces', 'deliver', 'complete'];
+$posisi = 0;
 
-$pending = false;
-$pay = false;
-$procces = false;
-$deliver = false;
-$complete = false;
-
-$index = array_search($st, $statuses);
-
-if ($index !== false) {
-    $pending = $index >= 0;
-    $pay = $index >= 1;
-    $procces = $index >= 2;
-    $deliver = $index >= 3;
-    $complete = $index >= 4;
+// Cek Status Database
+if ($status_db == 'pending' || $status_db == 'Menunggu Pembayaran' || $status_db == 'Menunggu Konfirmasi') {
+    $posisi = 0;
+} elseif ($status_db == 'pay' || $status_db == 'Menunggu Verifikasi') {
+    $posisi = 1;
+} elseif ($status_db == 'procces' || $status_db == 'Dikemas') {
+    $posisi = 2;
+} elseif ($status_db == 'deliver' || $status_db == 'Dikirim') {
+    $posisi = 3;
+} elseif ($status_db == 'complete' || $status_db == 'Selesai') {
+    $posisi = 4;
+} elseif ($status_db == 'Dibatalkan') {
+    $posisi = -1;
 }
+
+// Boolean
+$pending = ($posisi >= 0);
+$pay = ($posisi >= 1);
+$procces = ($posisi >= 2);
+$deliver = ($posisi >= 3);
+$complete = ($posisi >= 4);
 ?>
 
 <!DOCTYPE html>
@@ -105,6 +111,45 @@ if ($index !== false) {
                     <span class="bold">Total: <span class="gren">
                             Rp
                             <?= number_format($pesanan['total_pesanan'], 0, ',', '.') ?></span></span>
+                    <div style="margin: 20px 0;">
+
+                        <?php if ($pesanan['pembayaran'] == 'transfer' && $pesanan['status_pesanan'] == 'Menunggu Pembayaran'): ?>
+                            <div
+                                style="background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 8px; color: #856404;">
+                                <h3 style="margin-bottom: 8px;">⚠️ Menunggu Pembayaran</h3>
+                                <p style="margin-bottom: 10px;">Silakan transfer <strong>Rp
+                                        <?= number_format($pesanan['total_pesanan'], 0, ',', '.') ?>
+                                    </strong> ke rekening BCA 123-456-789.</p>
+
+                                <form action="../logic/kirim_bukti.php" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="id_pesanan" value="<?= $id_pesanan ?>">
+                                    <input type="file" name="bukti_foto" required accept="image/*"
+                                        style="margin-bottom: 10px;">
+                                    <br>
+                                    <button type="submit"
+                                        style="background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                                        Kirim Bukti Transfer
+                                    </button>
+                                </form>
+                            </div>
+
+                        <?php elseif ($pesanan['status_pesanan'] == 'Menunggu Verifikasi'): ?>
+                            <div
+                                style="background: #d1ecf1; border: 1px solid #bee5eb; padding: 15px; border-radius: 8px; color: #0c5460;">
+                                <h4>✅ Bukti Terkirim!</h4>
+                                <p>Admin sedang memverifikasi pembayaranmu. Mohon tunggu sebentar.</p>
+                            </div>
+
+                        <?php elseif ($pesanan['status_pesanan'] == 'Menunggu Konfirmasi'): ?>
+                            <div
+                                style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px; color: #155724;">
+                                <h4>🚚 Pesanan COD Diterima</h4>
+                                <p>Admin akan segera memproses pesananmu. Siapkan uang tunai saat kurir datang ya!</p>
+                            </div>
+
+                        <?php endif; ?>
+
+                    </div>
                     <div class="step-container">
                         <div class="container-step">
                             <!-- <a target="_blank" href="https://www.youtube.com/watch?v=WW6fEuheuas">

@@ -1,5 +1,6 @@
 <?php
 require "./koneksi.php";
+
 session_start();
 
 if (
@@ -14,7 +15,7 @@ if (
 $username = trim($_POST['username']);
 $password = $_POST['password'];
 
-$sql = "SELECT id, username, password, role 
+$sql = "SELECT id, username, password, role, nama_lengkap 
         FROM user 
         WHERE username = '$username'
         LIMIT 1";
@@ -33,8 +34,16 @@ if (mysqli_num_rows($res) === 1) {
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
 
+        if (!empty($user['nama_lengkap'])) {
+            $_SESSION['nama_kurir'] = $user['nama_lengkap'];
+        } else {
+            $_SESSION['nama_kurir'] = $user['username'];
+        }
+
         if ($user['role'] == 'admin') {
             header("Location: ../dashboard.php");
+        } elseif ($user['role'] == 'kurir') {
+            header("Location: ../mobile_kurir.php");
         } else {
             header("Location: ../beranda.php");
         }

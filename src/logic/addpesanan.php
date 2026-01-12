@@ -9,7 +9,8 @@ $fullname = $_POST['fullname'];
 $alamat = $_POST['addres'];
 $no_hp = $_POST['no_hp'];
 $pembayaran = $_POST['metode'];
-$created_at = date('Y-m-d');
+date_default_timezone_set('Asia/Jakarta');
+$created_at = date('Y-m-d H:i:s');
 
 $sql = "SELECT kp.*, p.nama, p.harga, p.gambar, p.stok
         FROM keranjang k
@@ -44,10 +45,16 @@ if (count($stok_tidak_cukup) > 0) {
 
 $no_pesanan = "PC00" . $user_id . $keranjang_id;
 
+if ($pembayaran == 'cod') {
+    $status_awal = 'Menunggu Konfirmasi';
+} else {
+    $status_awal = 'Menunggu Pembayaran';
+}
+
 $sql1 = "INSERT INTO pesanan
         (no_pesanan, user_id, total_pesanan, status_pesanan, pembayaran, nama, alamat, no_hp, created_at)
         VALUES
-        ('$no_pesanan', '$user_id', '$total_pesanan', 'pending', '$pembayaran', '$fullname', '$alamat', '$no_hp','$created_at')";
+        ('$no_pesanan', '$user_id', '$total_pesanan', '$status_awal', '$pembayaran', '$fullname', '$alamat', '$no_hp','$created_at')";
 
 $respesanan = mysqli_query($_CONNEC, $sql1) or die("SQL Error: " . mysqli_error($_CONNEC));
 $pesanan_id = mysqli_insert_id($_CONNEC);

@@ -11,7 +11,19 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-$query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC");
+$query_text = "SELECT * FROM pesanan 
+ORDER BY 
+CASE status_pesanan
+    WHEN 'Menunggu Verifikasi' THEN 1 
+    WHEN 'Menunggu Konfirmasi' THEN 2 
+    WHEN 'Dikemas' THEN 3
+    WHEN 'Menunggu Pembayaran' THEN 4
+    WHEN 'Dikirim' THEN 5
+    ELSE 6 
+END ASC, 
+id DESC";
+
+$query_pesanan = mysqli_query($_CONNEC, $query_text);
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +63,7 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                 <a href="./beranda.php">
                     <div class="button_header">
                         <img class="icon" src="../public/icon/material-symbols--store.png">
-                        <p class="button_text">Store</p>
+                        <p class="button_text" style="white-space: nowrap;">Kunjungi Toko</p>
                     </div>
                 </a>
                 <a href="./logic/logout.php">
@@ -107,7 +119,9 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                                 <th>Tanggal</th>
                                 <th>Pelanggan</th>
                                 <th>Total</th>
-                                <th>Status</th>
+                                <th>Metode Pembayaran</th>
+                                <th>Bukti Pembayaran</th>
+                                <th>Status Pesanan</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -117,12 +131,35 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                                     <td class="col-invoice" style="font-family: monospace; color: #a1a1aa;">
                                         #<?= $row['no_pesanan'] ?>
                                     </td>
-                                    <td><?= date('d M Y', strtotime($row['created_at'])) ?></td>
-                                    <td class="col-nama"><?= $row['nama'] ?></td>
-                                    <td style="font-weight: 600;">Rp
+                                    <td>
+                                        <?= date('d M Y, H:i', strtotime($row['created_at'])) ?>
+                                    </td>
+                                    <td class="col-nama" style="text-transform: capitalize;"><?php echo $row['nama'] ?></td>
+                                    <td>Rp
                                         <?= number_format($row['total_pesanan'], 0, ',', '.') ?>
                                     </td>
+                                    <td>
+                                        <?php if ($row['pembayaran'] == 'cod'): ?>
+                                            <span>COD</span>
+                                        <?php else: ?>
+                                            <span>Transfer</span>
+                                        <?php endif; ?>
+                                    </td>
 
+                                    <td>
+                                        <?php if ($row['pembayaran'] == 'cod'): ?>
+                                            <span>-</span>
+                                        <?php else: ?>
+                                            <?php if (!empty($row['bukti_pembayaran'])): ?>
+                                                <a href="../public/img/bukti_bayar/<?= $row['bukti_pembayaran'] ?>" target="_blank"
+                                                    style="font-size: 13px;">
+                                                    Lihat Foto
+                                                </a>
+                                            <?php else: ?>
+                                                <span style="color: #ef4444; font-size: 13px;">Belum Upload</span>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <?php
                                         $statusClass = strtolower(explode(' ', $row['status_pesanan'])[0]);
@@ -141,20 +178,9 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                                             <div id="menu-<?= $row['id'] ?>" class="dropdown-menu">
 
                                                 <a href="detail_pesanan.php?id=<?= $row['id'] ?>" class="dropdown-item">
-                                                    <img src="../public/icon/mdi--magnify.png" style="width: 16px;">
-                                                    Lihat Detail
+                                                    <img src="../public/icon/mdi--magnify.png" style="width: 16px;"> Lihat
+                                                    Detail
                                                 </a>
-
-                                                <?php if ($row['status_pesanan'] == 'Menunggu Pembayaran'): ?>
-                                                    <button class="dropdown-item" onclick="bukaModalKonfirmasi(
-                    '<?= $row['id'] ?>', 
-                    '<?= htmlspecialchars($row['nama']) ?>',
-                    '<?= number_format($row['total_pesanan'], 0, ',', '.') ?>'
-                )">
-                                                        <img src="../public/icon/tabler--check.png" style="width: 16px;">
-                                                        Konfirmasi
-                                                    </button>
-                                                <?php endif; ?>
 
                                             </div>
                                         </div>
@@ -295,7 +321,6 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                 </tr>
             </thead>
             <tbody>
-                <!-- CONTOH -->
                 <tr>
                     <td>Nama Produk</td>
                     <td style="text-align:center;">1</td>
@@ -309,7 +334,6 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
 
         <hr style="border:0;border-top:1px solid #27272a;margin:16px 0;">
 
-        <!-- TOTAL -->
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:13px; font-weight:600;">
                 Total Pesanan
@@ -336,7 +360,6 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
             tutupKonfirmasi();
         });
 
-        // 1. Fungsi Toggle Dropdown (Wajib Ada)
         function toggleDropdown(id) {
             const allMenus = document.getElementsByClassName("dropdown-menu");
             for (let i = 0; i < allMenus.length; i++) {
@@ -347,7 +370,6 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
             document.getElementById(id).classList.toggle("show");
         }
 
-        // 2. Tutup Dropdown kalau klik di luar
         window.onclick = function (event) {
             if (!event.target.closest('.btn-kebab')) {
                 const allMenus = document.getElementsByClassName("dropdown-menu");
@@ -355,18 +377,15 @@ $query_pesanan = mysqli_query($_CONNEC, "SELECT * FROM pesanan ORDER BY id DESC"
                     allMenus[i].classList.remove('show');
                 }
             }
-            // Logic tutup modal konfirmasi juga bisa ditaruh sini
+
             const modal = document.getElementById('modalKonfirmasi');
             if (event.target == modal) {
                 tutupKonfirmasi();
             }
         }
 
-        // 3. Fungsi Buka Modal Konfirmasi (Simpel & Bersih)
         function bukaModalKonfirmasi(id, nama, total) {
             document.getElementById('confirm_id').value = id;
-
-            // Tampilkan info ringkas aja (Nama & Total)
             document.getElementById('infoSingkatPesanan').innerHTML = `
         <div style="text-align: center; margin-bottom: 20px;">
             <p style="color: #a1a1aa; font-size: 13px;">Pelanggan</p>
