@@ -92,27 +92,13 @@ $total_harga = $_POST['total_harga_dikeranjang'];
                         </th>
                     </tr>
                     <tr>
-                        <td colspan="3" class="payment">
-                            <div class="left">
-                                <div class="input-grub">
-                                    <input type="radio" name="metode" required value="Tranfer Bank" id="tranfer-bank">
-                                    <label for="tranfer-bank">Tranfer Bank</label>
-                                </div>
-                                <div class="input-grub">
-                                    <input type="radio" name="metode" required value="e-wallet" id="e-wallet">
-                                    <label for="e-wallet">E-Wallet</label>
-                                </div>
-                                <div class="input-grub">
-                                    <input type="radio" name="metode" required value="cod" id="cod">
-                                    <label for="cod">COD</label>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="qr">
-                                    <img src="https://www.qr-code-generator.com/wp-content/themes/qr/images/banners/frames/websiteQRCode_noFrame.png"
-                                        alt="">
-                                </div>
-                            </div>
+                        <td colspan="3" style="padding: 20px;">
+                            <select name="metode" required
+                                style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
+                                <option value="" disabled selected>-- Pilih Metode Pembayaran --</option>
+                                <option value="transfer">Transfer Bank (BCA/Mandiri)</option>
+                                <option value="cod">COD (Bayar Ditempat)</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
