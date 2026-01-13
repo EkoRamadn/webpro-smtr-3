@@ -16,9 +16,9 @@ if ($_SESSION['role'] !== 'kurir') {
     exit;
 }
 
-$id_kurir = $_SESSION['username'];
+$id_kurir = $_SESSION['user_id'];
 
-$query = mysqli_query($_CONNEC, "SELECT * FROM pesanan WHERE status_pesanan = 'Dikirim' ORDER BY (nama_kurir = '$id_kurir') DESC, created_at ASC");
+$query = mysqli_query($_CONNEC, "SELECT * FROM pesanan WHERE status_pesanan = 'Dikirim' ORDER BY (kurir_id = '$id_kurir') DESC, created_at ASC");
 ?>
 
 <!DOCTYPE html>
@@ -46,8 +46,8 @@ $query = mysqli_query($_CONNEC, "SELECT * FROM pesanan WHERE status_pesanan = 'D
         <?php if (mysqli_num_rows($query) > 0): ?>
             <?php while ($row = mysqli_fetch_assoc($query)): ?>
                 <?php
-                $is_mine = ($row['nama_kurir'] == $id_kurir);
-                $is_free = empty($row['nama_kurir']);
+                $is_mine = ($row['kurir_id'] == $id_kurir);
+                $is_free = empty($row['kurir_id']);
 
                 $nama_user = $row['nama'];
                 $order_id = $row['no_pesanan'];
@@ -195,8 +195,10 @@ $query = mysqli_query($_CONNEC, "SELECT * FROM pesanan WHERE status_pesanan = 'D
             document.getElementById('fileInput').value = '';
         }
 
-        function tutupModal() {
-            document.getElementById('modalSelesai').style.display = 'none';
+        function tutupModal(event) {
+            if (event.target.id === 'modalSelesai') {
+                document.getElementById('modalSelesai').style.display = 'none';
+            }
         }
 
         function previewImage(input) {
