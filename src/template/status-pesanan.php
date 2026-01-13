@@ -14,7 +14,10 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 $id_pesanan = (int) $_GET['id'];
 
-$sql = "SELECT id,no_pesanan,user_id,total_pesanan,status_pesanan,pembayaran,alamat,nama,no_hp,created_at FROM pesanan WHERE id=$id_pesanan";
+$sql = "SELECT p.*, k.nama_lengkap AS nama_kurir 
+        FROM pesanan p
+        LEFT JOIN user k ON p.kurir_id = k.id 
+        WHERE p.id = $id_pesanan";
 $res = mysqli_query($_CONNEC, $sql);
 
 
@@ -116,7 +119,7 @@ $complete = ($posisi >= 4);
                         <?php if ($pesanan['pembayaran'] == 'transfer' && $pesanan['status_pesanan'] == 'Menunggu Pembayaran'): ?>
                             <div
                                 style="background: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 8px; color: #856404;">
-                                <h3 style="margin-bottom: 8px;">⚠️ Menunggu Pembayaran</h3>
+                                <h3 style="margin-bottom: 8px;">Menunggu Pembayaran</h3>
                                 <p style="margin-bottom: 10px;">Silakan transfer <strong>Rp
                                         <?= number_format($pesanan['total_pesanan'], 0, ',', '.') ?>
                                     </strong> ke rekening BCA 123-456-789.</p>
@@ -136,20 +139,45 @@ $complete = ($posisi >= 4);
                         <?php elseif ($pesanan['status_pesanan'] == 'Menunggu Verifikasi'): ?>
                             <div
                                 style="background: #d1ecf1; border: 1px solid #bee5eb; padding: 15px; border-radius: 8px; color: #0c5460;">
-                                <h4>✅ Bukti Terkirim!</h4>
+                                <h4>Bukti Terkirim!</h4>
                                 <p>Admin sedang memverifikasi pembayaranmu. Mohon tunggu sebentar.</p>
                             </div>
 
                         <?php elseif ($pesanan['status_pesanan'] == 'Menunggu Konfirmasi'): ?>
                             <div
                                 style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px; color: #155724;">
-                                <h4>🚚 Pesanan COD Diterima</h4>
+                                <h4>Pesanan COD Diterima</h4>
                                 <p>Admin akan segera memproses pesananmu. Siapkan uang tunai saat kurir datang ya!</p>
                             </div>
 
                         <?php endif; ?>
 
                     </div>
+                    <?php if ($pesanan['status_pesanan'] == 'Dikirim' || $pesanan['status_pesanan'] == 'Selesai'): ?>
+                        <div
+                            style="background: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                            <h3 style="margin-bottom: 10px; color: #343a40; font-size: 16px;">Info Pengiriman</h3>
+
+                            <div style="font-size: 14px; color: #495057;">
+                                <span style="color: #868e96;">Nama Kurir:</span> <br>
+                                <span style="text-transform: capitalize; font-weight: 600; font-size: 15px;">
+                                    <?= !empty($pesanan['nama_kurir']) ? $pesanan['nama_kurir'] : 'Sedang menuju lokasi...' ?>
+                                </span>
+                            </div>
+
+                            <?php if ($pesanan['status_pesanan'] == 'Selesai' && !empty($pesanan['bukti_pengiriman'])): ?>
+                                <div style="margin-top: 15px; border-top: 1px dashed #ced4da; padding-top: 10px;">
+                                    <span style="display:block; color: #868e96; font-size: 13px; margin-bottom: 8px;">Bukti
+                                        Paket Diterima:</span>
+
+                                    <a href="/public/img/bukti_kirim/<?= $pesanan['bukti_pengiriman'] ?>" target="_blank">
+                                        <img src="/public/img/bukti_kirim/<?= $pesanan['bukti_pengiriman'] ?>" alt="Bukti Paket"
+                                            style="width: 100%; max-width: 100%; border-radius: 8px; border: 1px solid #dee2e6;">
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="step-container">
                         <div class="container-step">
                             <!-- <a target="_blank" href="https://www.youtube.com/watch?v=WW6fEuheuas">
