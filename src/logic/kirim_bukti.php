@@ -8,12 +8,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-if ($_SESSION['role'] !== 'kurir') {
-    if ($_SESSION['role'] === 'admin') {
-        header("Location: dashboard.php");
-    } else {
-        header("Location: beranda.php");
-    }
+if ($_SESSION['role'] !== 'user') {
+    header("Location: ../index.php");
     exit;
 }
 
